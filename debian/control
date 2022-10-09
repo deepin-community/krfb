@@ -1,0 +1,60 @@
+Source: krfb
+Section: kde
+Priority: optional
+Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+Uploaders: Aurélien COUDERC <coucouf@debian.org>,
+           Norbert Preining <norbert@preining.info>,
+           Sune Vuorela <sune@debian.org>,
+Build-Depends: cmake (>= 3.16~),
+               debhelper-compat (= 13),
+               extra-cmake-modules (>= 5.83.0~),
+               gettext,
+               libjpeg-dev,
+               libkf5config-dev (>= 5.83.0~),
+               libkf5coreaddons-dev (>= 5.83.0~),
+               libkf5crash-dev (>= 5.83.0~),
+               libkf5dbusaddons-dev (>= 5.83.0~),
+               libkf5dnssd-dev (>= 5.83.0~),
+               libkf5doctools-dev (>= 5.83.0~),
+               libkf5i18n-dev (>= 5.83.0~),
+               libkf5notifications-dev (>= 5.83.0~),
+               libkf5wallet-dev (>= 5.83.0~),
+               libkf5widgetsaddons-dev (>= 5.83.0~),
+               libkf5windowsystem-dev (>= 5.83.0~),
+               libkf5xmlgui-dev (>= 5.83.0~),
+               libpipewire-0.3-dev [linux-any],
+               libqt5x11extras5-dev (>= 5.15.0~),
+               libvncserver-dev,
+               libx11-dev,
+               libxcb-damage0-dev,
+               libxcb-image0-dev,
+               libxcb-render0-dev,
+               libxcb-shape0-dev,
+               libxcb-shm0-dev,
+               libxcb-xfixes0-dev,
+               libxcb1-dev,
+               libxdamage-dev,
+               libxtst-dev,
+               pkg-config,
+               pkg-kde-tools,
+               qtbase5-dev (>= 5.15.0~),
+Standards-Version: 4.5.1
+Homepage: https://apps.kde.org/en/krfb
+Vcs-Browser: https://salsa.debian.org/qt-kde-team/kde/krfb
+Vcs-Git: https://salsa.debian.org/qt-kde-team/kde/krfb.git
+Rules-Requires-Root: no
+
+Package: krfb
+Section: net
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Suggests: khelpcenter, krdc
+Description: Desktop Sharing utility
+ KDE Desktop Sharing is a manager for easily sharing a desktop session with
+ another system.  The desktop session can be viewed or controlled remotely by
+ any VNC or RFB client, such as the KDE Remote Desktop Connection client.
+ .
+ KDE Desktop Sharing can restrict access to only users who are explicitly
+ invited, and will ask for confirmation when a user attempts to connect.
+ .
+ This package is part of the KDE networking module.

@@ -1,0 +1,6 @@
+# private library
+krfb: package-name-doesnt-match-sonames libkrfbprivate5*
+# private library
+krfb: no-symbols-control-file
+# krfb doesn’t have command line arguments.
+krfb: no-manual-page usr/bin/krfb
