@@ -22,6 +22,9 @@
 #include <QDebug>
 #include <QRandomGenerator>
 
+#include <KWayland/Client/connection_thread.h>
+#include <KWayland/Client/registry.h>
+
 // pipewire
 #include <sys/ioctl.h>
 
@@ -38,6 +41,7 @@
 #include "xdp_dbus_screencast_interface.h"
 #include "xdp_dbus_remotedesktop_interface.h"
 #include "krfb_fb_pipewire_debug.h"
+#include "screencasting.h"
 
 #if HAVE_DMA_BUF
 #include <fcntl.h>
@@ -170,6 +174,10 @@ private:
 
     // sanity indicator
     bool isValid = true;
+
+    QImage cursorTexture;
+    QPoint cursorPosition;
+    QPoint cursorHotspot;
 
 #if HAVE_DMA_BUF
     struct EGLStruct {
@@ -552,6 +560,10 @@ void PWFrameBuffer::Private::onStreamStateChanged(void *data, pw_stream_state /*
     }
 }
 
+#define CURSOR_BPP	4
+#define CURSOR_META_SIZE(w,h)	(sizeof(struct spa_meta_cursor) + \
+				 sizeof(struct spa_meta_bitmap) + w * h * CURSOR_BPP)
+
 /**
  * @brief PWFrameBuffer::Private::onStreamFormatChanged - being executed after stream is set to active
  *        and after setup has been requested to connect to it. The actual video format is being negotiated here.
@@ -579,7 +591,6 @@ void PWFrameBuffer::Private::onStreamParamChanged(void *data, uint32_t id, const
     auto builder = SPA_POD_BUILDER_INIT(buffer, sizeof(buffer));
 
     // setup buffers and meta header for new format
-    const struct spa_pod *params[3];
 
 #if HAVE_DMA_BUF
     const auto bufferTypes = d->m_eglInitialized ? (1 << SPA_DATA_DmaBuf) | (1 << SPA_DATA_MemFd) | (1 << SPA_DATA_MemPtr) :
@@ -588,23 +599,38 @@ void PWFrameBuffer::Private::onStreamParamChanged(void *data, uint32_t id, const
     const auto bufferTypes = (1 << SPA_DATA_MemFd) | (1 << SPA_DATA_MemPtr);
 #endif /* HAVE_DMA_BUF */
 
-    params[0] = reinterpret_cast<spa_pod *>(spa_pod_builder_add_object(&builder,
+    QVector<const struct spa_pod *> params = {
+        reinterpret_cast<spa_pod *>(spa_pod_builder_add_object(&builder,
                 SPA_TYPE_OBJECT_ParamBuffers, SPA_PARAM_Buffers,
                 SPA_PARAM_BUFFERS_size, SPA_POD_Int(size),
                 SPA_PARAM_BUFFERS_stride, SPA_POD_Int(stride),
                 SPA_PARAM_BUFFERS_buffers, SPA_POD_CHOICE_RANGE_Int(8, 1, 32),
                 SPA_PARAM_BUFFERS_blocks, SPA_POD_Int(1),
                 SPA_PARAM_BUFFERS_align, SPA_POD_Int(16),
-                SPA_PARAM_BUFFERS_dataType, SPA_POD_CHOICE_FLAGS_Int(bufferTypes)));
-    params[1] = reinterpret_cast<spa_pod *>(spa_pod_builder_add_object(&builder,
+                SPA_PARAM_BUFFERS_dataType, SPA_POD_CHOICE_FLAGS_Int(bufferTypes))),
+        reinterpret_cast<spa_pod *>(spa_pod_builder_add_object(&builder,
                 SPA_TYPE_OBJECT_ParamMeta, SPA_PARAM_Meta,
                 SPA_PARAM_META_type, SPA_POD_Id(SPA_META_Header),
-                SPA_PARAM_META_size, SPA_POD_Int(sizeof(struct spa_meta_header))));
-    params[2] = reinterpret_cast<spa_pod*>(spa_pod_builder_add_object(&builder,
+                SPA_PARAM_META_size, SPA_POD_Int(sizeof(struct spa_meta_header)))),
+        reinterpret_cast<spa_pod*>(spa_pod_builder_add_object(&builder,
                 SPA_TYPE_OBJECT_ParamMeta, SPA_PARAM_Meta, SPA_PARAM_META_type,
                 SPA_POD_Id(SPA_META_VideoCrop), SPA_PARAM_META_size,
-                SPA_POD_Int(sizeof(struct spa_meta_region))));
-    pw_stream_update_params(d->pwStream, params, 3);
+                SPA_POD_Int(sizeof(struct spa_meta_region)))),
+        reinterpret_cast<spa_pod*>(spa_pod_builder_add_object ( &builder,
+                SPA_TYPE_OBJECT_ParamMeta, SPA_PARAM_Meta,
+                SPA_PARAM_META_type, SPA_POD_Id (SPA_META_Cursor),
+                SPA_PARAM_META_size, SPA_POD_CHOICE_RANGE_Int (CURSOR_META_SIZE (64, 64),
+                                                        CURSOR_META_SIZE (1, 1),
+                                                        CURSOR_META_SIZE (1024, 1024)))),
+        reinterpret_cast<spa_pod*>(spa_pod_builder_add_object ( &builder,
+                SPA_TYPE_OBJECT_ParamMeta, SPA_PARAM_Meta,
+                SPA_PARAM_META_type, SPA_POD_Id(SPA_META_VideoDamage),
+                SPA_PARAM_META_size, SPA_POD_CHOICE_RANGE_Int(
+                            sizeof(struct spa_meta_region) * 16,
+                            sizeof(struct spa_meta_region) * 1,
+                            sizeof(struct spa_meta_region) * 16))),
+    };
+    pw_stream_update_params(d->pwStream, params.data(), params.size());
 }
 
 /**
@@ -638,13 +664,42 @@ void PWFrameBuffer::Private::onStreamProcess(void *data)
     pw_stream_queue_buffer(d->pwStream, buffer);
 }
 
+static QImage::Format spaToQImageFormat(quint32 format)
+{
+    return format == SPA_VIDEO_FORMAT_BGR  ? QImage::Format_BGR888
+           : format == SPA_VIDEO_FORMAT_RGBx ? QImage::Format_RGBX8888
+           : QImage::Format_RGB32;
+}
+
 void PWFrameBuffer::Private::handleFrame(pw_buffer *pwBuffer)
 {
     auto spaBuffer = pwBuffer->buffer;
     uint8_t *src = nullptr;
 
+    // process cursor
+    {
+        struct spa_meta_cursor *cursor = static_cast<struct spa_meta_cursor*>(spa_buffer_find_meta_data (spaBuffer, SPA_META_Cursor, sizeof (*cursor)));
+        if (spa_meta_cursor_is_valid (cursor)) {
+            struct spa_meta_bitmap *bitmap = nullptr;
+
+            if (cursor->bitmap_offset)
+                bitmap = SPA_MEMBER (cursor, cursor->bitmap_offset, struct spa_meta_bitmap);
+
+            if (bitmap && bitmap->size.width > 0 && bitmap->size.height > 0) {
+                const uint8_t *bitmap_data;
+
+                bitmap_data = SPA_MEMBER (bitmap, bitmap->offset, uint8_t);
+                cursorHotspot = { cursor->hotspot.x, cursor->hotspot.y };
+                cursorTexture = QImage(bitmap_data, bitmap->size.width, bitmap->size.height, bitmap->stride, spaToQImageFormat(bitmap->format));
+            }
+
+            cursorPosition = QPoint{ cursor->position.x, cursor->position.y };
+        }
+    }
+
     if (spaBuffer->datas[0].chunk->size == 0) {
-        qCDebug(KRFB_FB_PIPEWIRE)  << "discarding null buffer";
+        qCDebug(KRFB_FB_PIPEWIRE) << "Got empty buffer. The buffer possibly carried only "
+                                     "information about the mouse cursor.";
         return;
     }
 
@@ -824,15 +879,21 @@ void PWFrameBuffer::Private::handleFrame(pw_buffer *pwBuffer)
     }
 
     if (videoFormat->format != SPA_VIDEO_FORMAT_RGB) {
-        const QImage::Format format = videoFormat->format == SPA_VIDEO_FORMAT_BGR  ? QImage::Format_BGR888
-                                    : videoFormat->format == SPA_VIDEO_FORMAT_RGBx ? QImage::Format_RGBX8888
-                                                                                   : QImage::Format_RGB32;
-
-        QImage img((uchar*) q->fb, videoSize.width(), videoSize.height(), dstStride, format);
+        QImage img((uchar*) q->fb, videoSize.width(), videoSize.height(), dstStride, spaToQImageFormat(videoFormat->format));
         img.convertTo(QImage::Format_RGB888);
     }
 
-    q->tiles.append(QRect(0, 0, videoSize.width(), videoSize.height()));
+    if (spa_meta* vdMeta = spa_buffer_find_meta(spaBuffer, SPA_META_VideoDamage)) {
+        struct spa_meta_region *r;
+        spa_meta_for_each(r, vdMeta) {
+            if (!spa_meta_region_is_valid(r))
+                break;
+
+            q->tiles.append(QRect(r->region.position.x, r->region.position.y, r->region.size.width, r->region.size.height));
+        }
+    } else {
+        q->tiles.append(QRect(0, 0, videoSize.width(), videoSize.height()));
+    }
 }
 
 /**
@@ -900,14 +961,10 @@ PWFrameBuffer::Private::~Private()
     }
 }
 
-PWFrameBuffer::PWFrameBuffer(WId winid, QObject *parent)
-    : FrameBuffer (winid, parent),
+PWFrameBuffer::PWFrameBuffer(QObject *parent)
+    : FrameBuffer (parent),
       d(new Private(this))
 {
-    // D-Bus is most important in init chain, no toys for us if something is wrong with XDP
-    // PipeWire connectivity is initialized after D-Bus session is started
-    d->initDbus();
-
     fb = nullptr;
 }
 
@@ -915,6 +972,38 @@ PWFrameBuffer::~PWFrameBuffer()
 {
     free(fb);
     fb = nullptr;
+}
+
+void PWFrameBuffer::initDBus()
+{
+    d->initDbus();
+}
+
+void PWFrameBuffer::startVirtualMonitor(const QString& name, const QSize& resolution, qreal dpr)
+{
+    d->videoSize = resolution * dpr;
+    using namespace KWayland::Client;
+    auto connection = ConnectionThread::fromApplication(this);
+    if (!connection) {
+        qWarning() << "Failed getting Wayland connection from QPA";
+        QCoreApplication::exit(1);
+        return;
+    }
+
+    auto registry = new Registry(this);
+    connect(registry, &KWayland::Client::Registry::interfaceAnnounced, this, [this, registry, name, dpr, resolution] (const QByteArray &interfaceName, quint32 wlname, quint32 version) {
+        if (interfaceName != "zkde_screencast_unstable_v1")
+            return;
+
+        auto screencasting = new Screencasting(registry, wlname, version, this);
+        auto r = screencasting->createVirtualMonitorStream(name, resolution, dpr, Screencasting::Metadata);
+        connect(r, &ScreencastingStream::created, this, [this] (quint32 nodeId) {
+            d->pwStreamNodeId = nodeId;
+            d->initPw();
+        });
+    });
+    registry->create(connection);
+    registry->setup();
 }
 
 int PWFrameBuffer::depth()
@@ -969,4 +1058,9 @@ QVariant PWFrameBuffer::customProperty(const QString &property) const
 bool PWFrameBuffer::isValid() const
 {
     return d->isValid;
+}
+
+QPoint PWFrameBuffer::cursorPosition()
+{
+    return d->cursorPosition;
 }

@@ -45,14 +45,12 @@ public:
 
     ~FrameBufferManager() override;
 
-    QSharedPointer<FrameBuffer> frameBuffer(WId id);
+    QSharedPointer<FrameBuffer> frameBuffer(WId id, const QVariantMap &args);
 
 private:
     Q_DISABLE_COPY(FrameBufferManager)
 
     FrameBufferManager();
-
-    void loadPlugins();
 
     QMap<QString, FrameBufferPlugin *> m_plugins;
     QMap<WId, QWeakPointer<FrameBuffer> > m_frameBuffers;

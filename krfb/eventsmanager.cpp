@@ -28,10 +28,8 @@
 #include <QGlobalStatic>
 
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KPluginMetaData>
 
-#include <QtCore/QSharedPointer>
 
 class EventsManagerStatic
 {
@@ -43,71 +41,33 @@ Q_GLOBAL_STATIC(EventsManagerStatic, eventsManagerStatic)
 
 EventsManager::EventsManager()
 {
-    //qDebug();
-
-    loadPlugins();
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("krfb/events"), {}, KPluginMetaData::AllowEmptyMetaData);
+    for (const KPluginMetaData &data : plugins) {
+        const KPluginFactory::Result<EventsPlugin> result = KPluginFactory::instantiatePlugin<EventsPlugin>(data);
+        if (result.plugin) {
+            m_plugins.insert(data.pluginId(), result.plugin);
+            qCDebug(KRFB) << "Loaded plugin with name " << data.pluginId();
+        } else {
+            qCDebug(KRFB) << "unable to load plugin for " << data.fileName() << result.errorString;
+        }
+    }
 }
 
-EventsManager::~EventsManager()
-{
-    //qDebug();
-}
+EventsManager::~EventsManager() = default;
 
 EventsManager *EventsManager::instance()
 {
-    //qDebug();
-
     return &eventsManagerStatic->instance;
-}
-
-void EventsManager::loadPlugins()
-{
-    //qDebug();
-
-    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("krfb/events"));
-
-    QVectorIterator<KPluginMetaData> i(plugins);
-    i.toBack();
-    QSet<QString> unique;
-    while (i.hasPrevious()) {
-    KPluginMetaData data = i.previous();
-        // only load plugins once, even if found multiple times!
-        if (unique.contains(data.name()))
-            continue;
-        KPluginFactory *factory = KPluginLoader(data.fileName()).factory();
-
-        if (!factory) {
-            qCDebug(KRFB) << "KPluginFactory could not load the plugin:" << data.fileName();
-            continue;
-        } else {
-            qCDebug(KRFB) << "found plugin at " << data.fileName();
-        }
-
-        auto plugin = factory->create<EventsPlugin>(this);
-        if (plugin) {
-            m_plugins.insert(data.pluginId(), plugin);
-            qCDebug(KRFB) << "Loaded plugin with name " << data.pluginId();
-        } else {
-            qCDebug(KRFB) << "unable to load plugin for " << data.fileName();
-        }
-        unique.insert (data.name());
-    }
 }
 
 QSharedPointer<EventHandler> EventsManager::eventHandler()
 {
-    QMap<QString, EventsPlugin *>::const_iterator iter = m_plugins.constBegin();
-
-    while (iter != m_plugins.constEnd()) {
-
-        QSharedPointer<EventHandler> eventHandler(iter.value()->eventHandler());
-
+    for (auto it = m_plugins.cbegin(); it != m_plugins.constEnd(); it++) {
+        QSharedPointer<EventHandler> eventHandler(it.value()->eventHandler());
         if (eventHandler) {
             eventHandler->setFrameBufferPlugin(RfbServerManager::instance()->framebuffer());
             return eventHandler;
         }
-
-        ++iter;
     }
 
     // No valid events plugin found.

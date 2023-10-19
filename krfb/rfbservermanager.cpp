@@ -20,10 +20,10 @@
 */
 #include "rfbservermanager.h"
 #include "rfbserver.h"
-#include "framebuffer.h"
 #include "framebuffermanager.h"
 #include "sockethelpers.h"
 #include "krfbconfig.h"
+#include "krfbdebug.h"
 #include <QTimer>
 #include <QApplication>
 #include <QDesktopWidget>
@@ -33,6 +33,9 @@
 #include <KLocalizedString>
 #include <KUser>
 #include <KNotification>
+#include <chrono>
+
+using namespace std::chrono_literals;
 
 static const char *cur =
     "                   "
@@ -116,11 +119,12 @@ QSharedPointer<FrameBuffer> RfbServerManager::framebuffer() const
     return d->fb;
 }
 
+QVariantMap RfbServerManager::s_pluginArgs;
+
 void RfbServerManager::init()
 {
     //qDebug();
-
-    d->fb = FrameBufferManager::instance()->frameBuffer(QApplication::desktop()->winId());
+    d->fb = FrameBufferManager::instance()->frameBuffer(QApplication::desktop()->winId(), s_pluginArgs);
     d->myCursor = rfbMakeXCursor(19, 19, (char *) cur, (char *) mask);
     d->myCursor->cleanup = false;
     d->desktopName = QStringLiteral("%1@%2 (shared desktop)") //FIXME check if we can use utf8
@@ -133,7 +137,7 @@ void RfbServerManager::init()
 
 void RfbServerManager::updateFrameBuffer()
 {
-    Q_FOREACH(RfbServer *server, d->servers) {
+    for (RfbServer *server : std::as_const(d->servers)) {
         server->updateFrameBuffer(d->fb->data(), d->fb->width(), d->fb->height(), d->fb->depth());
     }
 }
@@ -141,9 +145,9 @@ void RfbServerManager::updateFrameBuffer()
 void RfbServerManager::updateScreens()
 {
     QList<QRect> rects = d->fb->modifiedTiles();
-    QPoint currentCursorPos = QCursor::pos();
+    const QPoint currentCursorPos = d->fb->cursorPosition();
 
-    for (RfbServer* server : qAsConst(d->servers)) {
+    for (RfbServer* server : std::as_const(d->servers)) {
         server->updateScreen(rects);
         server->updateCursorPosition(currentCursorPos);
     }
@@ -199,7 +203,7 @@ rfbScreenInfoPtr RfbServerManager::newScreen()
 
         //qDebug() << "bpp: " << bpp;
 
-        rfbLogEnable(0);
+        rfbLogEnable(KRFB().isDebugEnabled());
 
         screen = rfbGetScreen(nullptr, nullptr, w, h, 8, 3, bpp);
         screen->paddedWidthInBytes = d->fb->paddedWidth();
@@ -217,7 +221,7 @@ void RfbServerManager::addClient(RfbClient* cc)
     if (d->clients.size() == 0) {
         //qDebug() << "Starting framebuffer monitor";
         d->fb->startMonitor();
-        d->rfbUpdateTimer.start(50);
+        d->rfbUpdateTimer.start(50ms);
     }
     d->clients.insert(cc);
 

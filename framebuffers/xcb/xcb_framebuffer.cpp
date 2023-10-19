@@ -10,7 +10,6 @@
 #include "xcb_framebuffer.h"
 #include "krfb_fb_xcb_debug.h"
 
-#include <xcb/xcb.h>
 #include <xcb/xproto.h>
 #include <xcb/damage.h>
 #include <xcb/shm.h>
@@ -20,7 +19,8 @@
 #include <sys/shm.h>
 
 #include <QX11Info>
-#include <QCoreApplication>
+#include <QApplication>
+#include <QDesktopWidget>
 #include <QGuiApplication>
 #include <QScreen>
 #include <QAbstractNativeEventFilter>
@@ -131,6 +131,7 @@ public:
     bool                    running;
 
     QRect                   area;  // capture area, primary monitor coordinates
+    WId                     win;
 };
 
 
@@ -145,8 +146,8 @@ static xcb_screen_t *get_xcb_screen(xcb_connection_t *conn, int screen_num) {
 
 
 
-XCBFrameBuffer::XCBFrameBuffer(WId winid, QObject *parent):
-    FrameBuffer(winid, parent), d(new XCBFrameBuffer::P)
+XCBFrameBuffer::XCBFrameBuffer(QObject *parent):
+    FrameBuffer(parent), d(new XCBFrameBuffer::P)
 {
     d->running = false;
     d->damage = XCB_NONE;
@@ -158,6 +159,7 @@ XCBFrameBuffer::XCBFrameBuffer(WId winid, QObject *parent):
     d->area.setRect(0, 0, 0, 0);
     d->x11EvtFilter = new KrfbXCBEventFilter(this);
     d->rootScreen = get_xcb_screen(QX11Info::connection(), QX11Info::appScreen());
+    d->win = QApplication::desktop()->winId();
 
     this->fb = nullptr;
 
@@ -178,7 +180,7 @@ XCBFrameBuffer::XCBFrameBuffer(WId winid, QObject *parent):
     }
 
     d->framebufferImage = xcb_image_get(QX11Info::connection(),
-                                        this->win,
+                                        d->win,
                                         d->area.left(),
                                         d->area.top(),
                                         d->area.width(),
@@ -247,7 +249,7 @@ XCBFrameBuffer::XCBFrameBuffer(WId winid, QObject *parent):
             // will return 1 on success (yes!)
             int shmget_res = xcb_image_shm_get(
                         QX11Info::connection(),
-                        this->win,
+                        d->win,
                         d->updateTile,
                         d->shminfo,
                         d->area.left(), // x
@@ -555,7 +557,7 @@ QList<QRect> XCBFrameBuffer::modifiedTiles() {
                 // translate whe coordinates
                 xcb_shm_get_image_cookie_t sgi_cookie = xcb_shm_get_image(
                             QX11Info::connection(),
-                            this->win,
+                            d->win,
                             d->area.left() + r.left(),
                             d->area.top()  + r.top(),
                             r.width(),
@@ -605,12 +607,12 @@ QList<QRect> XCBFrameBuffer::modifiedTiles() {
         } else {
             // not using shared memory
             // will use just xcb_image_get() and copy pixels
-            for (const QRect& r : qAsConst(tiles)) {
+            for (const QRect& r : std::as_const(tiles)) {
                 // I did not find XGetSubImage() analog in XCB!!
                 // need function that copies pixels from one image to another
                 xcb_image_t *damagedImage = xcb_image_get(
                             QX11Info::connection(),
-                            this->win,
+                            d->win,
                             r.left(),
                             r.top(),
                             r.width(),
@@ -650,7 +652,7 @@ void XCBFrameBuffer::startMonitor() {
 
     d->running = true;
     d->damage = xcb_generate_id(QX11Info::connection());
-    xcb_damage_create(QX11Info::connection(), d->damage, this->win,
+    xcb_damage_create(QX11Info::connection(), d->damage, d->win,
             XCB_DAMAGE_REPORT_LEVEL_RAW_RECTANGLES);
 
     // (currently) we do not call xcb_damage_subtract() EVER, because

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: krfb\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-06-22 00:17+0000\n"
+"POT-Creation-Date: 2022-07-18 00:45+0000\n"
 "PO-Revision-Date: 2013-09-08 07:05+0900\n"
 "Last-Translator: Gheyret Kenji <gheyret@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -42,17 +42,17 @@ msgstr ""
 msgid "Refuse Connection"
 msgstr ""
 
-#: invitationsrfbclient.cpp:73
+#: invitationsrfbclient.cpp:69
 #, kde-format
 msgid "Accepted connection from %1"
 msgstr ""
 
-#: invitationsrfbclient.cpp:79
+#: invitationsrfbclient.cpp:75
 #, kde-format
 msgid "Received connection from %1, on hold (waiting for confirmation)"
 msgstr ""
 
-#: invitationsrfbserver.cpp:56
+#: invitationsrfbserver.cpp:55
 #, kde-format
 msgid "%1@%2 (shared desktop)"
 msgstr ""
@@ -113,29 +113,22 @@ msgstr ""
 msgid "Preferred Frame Buffer Plugin"
 msgstr ""
 
-#: main.cpp:41
+#: main-virtualmonitor.cpp:49
 #, kde-format
-msgid "VNC-compatible server to share desktops"
+msgid "Creating a Virtual Monitor from %1"
 msgstr ""
 
-#: main.cpp:51
+#: main-virtualmonitor.cpp:80
 #, kde-format
-msgid ""
-"Your X11 Server does not support the required XTest extension version 2.2. "
-"Sharing your desktop is not possible."
+msgid "Remote Virtual Monitor"
 msgstr ""
 
-#: main.cpp:53 main.cpp:152
+#: main-virtualmonitor.cpp:82
 #, kde-format
-msgid "Desktop Sharing Error"
+msgid "Offer a Virtual Monitor that can be accessed remotely"
 msgstr ""
 
-#: main.cpp:96
-#, kde-format
-msgid "Desktop Sharing"
-msgstr "ئۈستەلئۈستىنى ھەمبەھىرلەش"
-
-#: main.cpp:100
+#: main-virtualmonitor.cpp:84 main.cpp:98
 #, kde-format
 msgid ""
 "(c) 2009-2010, Collabora Ltd.\n"
@@ -147,111 +140,199 @@ msgid ""
 "(c) 1999, AT&T Laboratories Boston\n"
 msgstr ""
 
-#: main.cpp:107
+#: main-virtualmonitor.cpp:91
 #, kde-format
-msgid "George Goldberg"
+msgid "Virtual Monitor implementation"
 msgstr ""
 
-#: main.cpp:108
-#, kde-format
-msgid "Telepathy tubes support"
-msgstr ""
-
-#: main.cpp:110
+#: main-virtualmonitor.cpp:92 main.cpp:108
 #, kde-format
 msgid "George Kiagiadakis"
 msgstr "George Kiagiadakis"
 
-#: main.cpp:113
+#: main-virtualmonitor.cpp:93 main.cpp:111
 #, kde-format
 msgid "Alessandro Praduroux"
 msgstr ""
 
-#: main.cpp:113
+#: main-virtualmonitor.cpp:93 main.cpp:111
 #, kde-format
 msgid "KDE4 porting"
 msgstr ""
 
-#: main.cpp:114
+#: main-virtualmonitor.cpp:94 main.cpp:112
 #, kde-format
 msgid "Tim Jansen"
 msgstr "Tim Jansen"
 
-#: main.cpp:114
+#: main-virtualmonitor.cpp:94 main.cpp:112
 #, kde-format
 msgid "Original author"
 msgstr "ئەسلى ئاپتور"
 
-#: main.cpp:115
+#: main-virtualmonitor.cpp:95 main.cpp:113
 #, kde-format
 msgid "Johannes E. Schindelin"
 msgstr ""
 
-#: main.cpp:116
+#: main-virtualmonitor.cpp:96 main.cpp:114
 #, kde-format
 msgid "libvncserver"
 msgstr ""
 
-#: main.cpp:117
+#: main-virtualmonitor.cpp:97 main.cpp:115
 #, kde-format
 msgid "Const Kaplinsky"
 msgstr ""
 
-#: main.cpp:118
+#: main-virtualmonitor.cpp:98 main.cpp:116
 #, kde-format
 msgid "TightVNC encoder"
 msgstr ""
 
-#: main.cpp:119
+#: main-virtualmonitor.cpp:99 main.cpp:117
 #, kde-format
 msgid "Tridia Corporation"
 msgstr ""
 
-#: main.cpp:120
+#: main-virtualmonitor.cpp:100 main.cpp:118
 #, kde-format
 msgid "ZLib encoder"
 msgstr ""
 
-#: main.cpp:121
+#: main-virtualmonitor.cpp:101 main.cpp:119
 #, kde-format
 msgid "AT&T Laboratories Boston"
 msgstr ""
 
-#: main.cpp:122
+#: main-virtualmonitor.cpp:102 main.cpp:120
 #, kde-format
 msgid "original VNC encoders and protocol design"
 msgstr ""
 
-#: main.cpp:128
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "Logical resolution of the new monitor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "resolution"
+msgstr ""
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "Name of the monitor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "name"
+msgstr ""
+
+#: main-virtualmonitor.cpp:112
+#, kde-format
+msgid "Password for the client to connect to it"
+msgstr ""
+
+#: main-virtualmonitor.cpp:112
+#, fuzzy, kde-format
+#| msgid "<b>Password:</b>"
+msgid "password"
+msgstr "<b>ئىم:</b>"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "The device-pixel-ratio of the device, the scaling factor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "dpr"
+msgstr ""
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "The port we will be listening to"
+msgstr ""
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "number"
+msgstr ""
+
+#: main.cpp:49
+#, kde-format
+msgid ""
+"Your X11 Server does not support the required XTest extension version 2.2. "
+"Sharing your desktop is not possible."
+msgstr ""
+
+#: main.cpp:51 main.cpp:150
+#, kde-format
+msgid "Desktop Sharing Error"
+msgstr ""
+
+#: main.cpp:94
+#, kde-format
+msgid "Desktop Sharing"
+msgstr "ئۈستەلئۈستىنى ھەمبەھىرلەش"
+
+#: main.cpp:96
+#, kde-format
+msgid "VNC-compatible server to share desktops"
+msgstr ""
+
+#: main.cpp:105
+#, kde-format
+msgid "George Goldberg"
+msgstr ""
+
+#: main.cpp:106
+#, kde-format
+msgid "Telepathy tubes support"
+msgstr ""
+
+#: main.cpp:126
 #, kde-format
 msgid "Do not show the invitations management dialog at startup"
 msgstr ""
 
-#: main.cpp:150
+#: main.cpp:148
 #, kde-format
 msgid ""
 "Desktop Sharing is not running under an X11 Server or Wayland.\n"
 "Other display servers are currently not supported."
 msgstr ""
 
-#: mainwindow.cpp:53
+#: mainwindow.cpp:52
 #, kde-format
 msgid "Storing passwords in config file is insecure!"
 msgstr ""
 
-#: mainwindow.cpp:196
+#: mainwindow.cpp:189
 #, kde-format
 msgid "Enter a new password for Unattended Access"
 msgstr ""
 
-#: mainwindow.cpp:207
+#: mainwindow.cpp:200
 #, kde-format
 msgid ""
 "Failed to start the krfb server. Desktop sharing will not work. Try setting "
 "another port in the settings and restart krfb."
 msgstr ""
 
-#: mainwindow.cpp:230
+#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
+#: mainwindow.cpp:223 mainwindow.cpp:230 ui/mainwidget.ui:83
+#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
+#, fuzzy, kde-format
+#| msgid "Desktop Sharing"
+msgid "KDE Desktop Sharing"
+msgstr "ئۈستەلئۈستىنى ھەمبەھىرلەش"
+
+#: mainwindow.cpp:224
 #, kde-format
 msgid ""
 "This field contains the address of your computer and the port number, "
@@ -267,17 +348,7 @@ msgid ""
 "unreachable for other computers."
 msgstr ""
 
-#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
-#: mainwindow.cpp:231 mainwindow.cpp:238 ui/mainwidget.ui:83
-#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
-#, fuzzy, kde-format
-#| msgid "Desktop Sharing"
-msgid "KDE Desktop Sharing"
-msgstr "ئۈستەلئۈستىنى ھەمبەھىرلەش"
-
-#: mainwindow.cpp:237
+#: mainwindow.cpp:231
 #, kde-format
 msgid ""
 "Any remote user with normal desktop sharing password will have to be "
@@ -288,32 +359,32 @@ msgid ""
 "confirmation."
 msgstr ""
 
-#: mainwindow.cpp:256
+#: mainwindow.cpp:249
 #, kde-format
 msgid "Network"
 msgstr "تور"
 
-#: mainwindow.cpp:257
+#: mainwindow.cpp:250
 #, kde-format
 msgid "Security"
 msgstr "بىخەتەرلىك"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:251
 #, kde-format
 msgid "Screen capture"
 msgstr ""
 
-#: mainwindow.cpp:263
+#: mainwindow.cpp:256
 #, kde-format
 msgid "To apply framebuffer plugin setting, you need to restart the program."
 msgstr ""
 
-#: rfbservermanager.cpp:225
+#: rfbservermanager.cpp:229
 #, kde-format
 msgid "The remote user %1 is now connected."
 msgstr ""
 
-#: rfbservermanager.cpp:239
+#: rfbservermanager.cpp:243
 #, kde-format
 msgid "The remote user %1 disconnected."
 msgstr ""

@@ -3,13 +3,13 @@
 #
 # Malcolm Hunter <malcolm.hunter@gmx.co.uk>, 2002,2003, 2004.
 # Andrew Coles <andrew_coles@yahoo.co.uk>, 2004, 2005, 2009, 2010.
-# Steve Allewell <steve.allewell@gmail.com>, 2014, 2015, 2017, 2019.
+# Steve Allewell <steve.allewell@gmail.com>, 2014, 2015, 2017, 2019, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: krfb\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-06-22 00:17+0000\n"
-"PO-Revision-Date: 2019-08-03 16:33+0100\n"
+"POT-Creation-Date: 2022-07-18 00:45+0000\n"
+"PO-Revision-Date: 2022-01-01 15:48+0000\n"
 "Last-Translator: Steve Allewell <steve.allewell@gmail.com>\n"
 "Language-Team: British English <kde-l10n-en_gb@kde.org>\n"
 "Language: en_GB\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.07.70\n"
+"X-Generator: Lokalize 21.12.0\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -44,17 +44,17 @@ msgstr "Accept Connection"
 msgid "Refuse Connection"
 msgstr "Refuse Connection"
 
-#: invitationsrfbclient.cpp:73
+#: invitationsrfbclient.cpp:69
 #, kde-format
 msgid "Accepted connection from %1"
 msgstr "Accepted connection from %1"
 
-#: invitationsrfbclient.cpp:79
+#: invitationsrfbclient.cpp:75
 #, kde-format
 msgid "Received connection from %1, on hold (waiting for confirmation)"
 msgstr "Received connection from %1, on hold (waiting for confirmation)"
 
-#: invitationsrfbserver.cpp:56
+#: invitationsrfbserver.cpp:55
 #, kde-format
 msgid "%1@%2 (shared desktop)"
 msgstr "%1@%2 (shared desktop)"
@@ -115,31 +115,22 @@ msgstr "Password for uninvited connections."
 msgid "Preferred Frame Buffer Plugin"
 msgstr "Preferred Frame Buffer Plugin"
 
-#: main.cpp:41
+#: main-virtualmonitor.cpp:49
 #, kde-format
-msgid "VNC-compatible server to share desktops"
-msgstr "VNC-compatible server to share desktops"
+msgid "Creating a Virtual Monitor from %1"
+msgstr "Creating a Virtual Monitor from %1"
 
-#: main.cpp:51
+#: main-virtualmonitor.cpp:80
 #, kde-format
-msgid ""
-"Your X11 Server does not support the required XTest extension version 2.2. "
-"Sharing your desktop is not possible."
-msgstr ""
-"Your X11 Server does not support the required XTest extension version 2.2. "
-"Sharing your desktop is not possible."
+msgid "Remote Virtual Monitor"
+msgstr "Remote Virtual Monitor"
 
-#: main.cpp:53 main.cpp:152
+#: main-virtualmonitor.cpp:82
 #, kde-format
-msgid "Desktop Sharing Error"
-msgstr "Desktop Sharing Error"
+msgid "Offer a Virtual Monitor that can be accessed remotely"
+msgstr "Offer a Virtual Monitor that can be accessed remotely"
 
-#: main.cpp:96
-#, kde-format
-msgid "Desktop Sharing"
-msgstr "Desktop Sharing"
-
-#: main.cpp:100
+#: main-virtualmonitor.cpp:84 main.cpp:98
 #, kde-format
 msgid ""
 "(c) 2009-2010, Collabora Ltd.\n"
@@ -158,87 +149,166 @@ msgstr ""
 "(c) 2000, Tridia Corporation\n"
 "(c) 1999, AT&T Laboratories Boston\n"
 
-#: main.cpp:107
+#: main-virtualmonitor.cpp:91
 #, kde-format
-msgid "George Goldberg"
-msgstr "George Goldberg"
+msgid "Virtual Monitor implementation"
+msgstr "Virtual Monitor implementation"
 
-#: main.cpp:108
-#, kde-format
-msgid "Telepathy tubes support"
-msgstr "Telepathy tubes support"
-
-#: main.cpp:110
+#: main-virtualmonitor.cpp:92 main.cpp:108
 #, kde-format
 msgid "George Kiagiadakis"
 msgstr "George Kiagiadakis"
 
-#: main.cpp:113
+#: main-virtualmonitor.cpp:93 main.cpp:111
 #, kde-format
 msgid "Alessandro Praduroux"
 msgstr "Alessandro Praduroux"
 
-#: main.cpp:113
+#: main-virtualmonitor.cpp:93 main.cpp:111
 #, kde-format
 msgid "KDE4 porting"
 msgstr "KDE4 porting"
 
-#: main.cpp:114
+#: main-virtualmonitor.cpp:94 main.cpp:112
 #, kde-format
 msgid "Tim Jansen"
 msgstr "Tim Jansen"
 
-#: main.cpp:114
+#: main-virtualmonitor.cpp:94 main.cpp:112
 #, kde-format
 msgid "Original author"
 msgstr "Original author"
 
-#: main.cpp:115
+#: main-virtualmonitor.cpp:95 main.cpp:113
 #, kde-format
 msgid "Johannes E. Schindelin"
 msgstr "Johannes E. Schindelin"
 
-#: main.cpp:116
+#: main-virtualmonitor.cpp:96 main.cpp:114
 #, kde-format
 msgid "libvncserver"
 msgstr "libvncserver"
 
-#: main.cpp:117
+#: main-virtualmonitor.cpp:97 main.cpp:115
 #, kde-format
 msgid "Const Kaplinsky"
 msgstr "Const Kaplinsky"
 
-#: main.cpp:118
+#: main-virtualmonitor.cpp:98 main.cpp:116
 #, kde-format
 msgid "TightVNC encoder"
 msgstr "TightVNC encoder"
 
-#: main.cpp:119
+#: main-virtualmonitor.cpp:99 main.cpp:117
 #, kde-format
 msgid "Tridia Corporation"
 msgstr "Tridia Corporation"
 
-#: main.cpp:120
+#: main-virtualmonitor.cpp:100 main.cpp:118
 #, kde-format
 msgid "ZLib encoder"
 msgstr "ZLib encoder"
 
-#: main.cpp:121
+#: main-virtualmonitor.cpp:101 main.cpp:119
 #, kde-format
 msgid "AT&T Laboratories Boston"
 msgstr "AT&T Laboratories Boston"
 
-#: main.cpp:122
+#: main-virtualmonitor.cpp:102 main.cpp:120
 #, kde-format
 msgid "original VNC encoders and protocol design"
 msgstr "original VNC encoders and protocol design"
 
-#: main.cpp:128
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "Logical resolution of the new monitor"
+msgstr "Logical resolution of the new monitor"
+
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "resolution"
+msgstr "resolution"
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "Name of the monitor"
+msgstr "Name of the monitor"
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "name"
+msgstr "name"
+
+#: main-virtualmonitor.cpp:112
+#, kde-format
+msgid "Password for the client to connect to it"
+msgstr "Password for the client to connect to it"
+
+#: main-virtualmonitor.cpp:112
+#, kde-format
+msgid "password"
+msgstr "password"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "The device-pixel-ratio of the device, the scaling factor"
+msgstr "The device-pixel-ratio of the device, the scaling factor"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "dpr"
+msgstr "dpr"
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "The port we will be listening to"
+msgstr "The port we will be listening to"
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "number"
+msgstr "number"
+
+#: main.cpp:49
+#, kde-format
+msgid ""
+"Your X11 Server does not support the required XTest extension version 2.2. "
+"Sharing your desktop is not possible."
+msgstr ""
+"Your X11 Server does not support the required XTest extension version 2.2. "
+"Sharing your desktop is not possible."
+
+#: main.cpp:51 main.cpp:150
+#, kde-format
+msgid "Desktop Sharing Error"
+msgstr "Desktop Sharing Error"
+
+#: main.cpp:94
+#, kde-format
+msgid "Desktop Sharing"
+msgstr "Desktop Sharing"
+
+#: main.cpp:96
+#, kde-format
+msgid "VNC-compatible server to share desktops"
+msgstr "VNC-compatible server to share desktops"
+
+#: main.cpp:105
+#, kde-format
+msgid "George Goldberg"
+msgstr "George Goldberg"
+
+#: main.cpp:106
+#, kde-format
+msgid "Telepathy tubes support"
+msgstr "Telepathy tubes support"
+
+#: main.cpp:126
 #, kde-format
 msgid "Do not show the invitations management dialog at startup"
 msgstr "Do not show the invitations management dialogue at startup"
 
-#: main.cpp:150
+#: main.cpp:148
 #, kde-format
 msgid ""
 "Desktop Sharing is not running under an X11 Server or Wayland.\n"
@@ -247,17 +317,17 @@ msgstr ""
 "Desktop Sharing is not running under an X11 Server or Wayland.\n"
 "Other display servers are currently not supported."
 
-#: mainwindow.cpp:53
+#: mainwindow.cpp:52
 #, kde-format
 msgid "Storing passwords in config file is insecure!"
 msgstr "Storing passwords in configuration file is insecure!"
 
-#: mainwindow.cpp:196
+#: mainwindow.cpp:189
 #, kde-format
 msgid "Enter a new password for Unattended Access"
 msgstr "Enter a new password for Unattended Access"
 
-#: mainwindow.cpp:207
+#: mainwindow.cpp:200
 #, kde-format
 msgid ""
 "Failed to start the krfb server. Desktop sharing will not work. Try setting "
@@ -265,44 +335,44 @@ msgid ""
 msgstr ""
 "Failed to start the krfb server. Desktop sharing will not work. Try setting "
 "another port in the settings and restart krfb."
-
-#: mainwindow.cpp:230
-#, kde-format
-msgid ""
-"This field contains the address of your computer and the port number, "
-"separated by a colon.\n"
-"\n"
-"The address is just a hint - you can use any address that can reach your "
-"computer.\n"
-"\n"
-"Desktop Sharing tries to guess your address from your network configuration, "
-"but does not always succeed in doing so.\n"
-"\n"
-"If your computer is behind a firewall it may have a different address or be "
-"unreachable for other computers."
-msgstr ""
-"This field contains the address of your computer and the port number, "
-"separated by a colon.\n"
-"\n"
-"The address is just a hint - you can use any address that can reach your "
-"computer.\n"
-"\n"
-"Desktop Sharing tries to guess your address from your network configuration, "
-"but does not always succeed in doing so.\n"
-"\n"
-"If your computer is behind a firewall it may have a different address or be "
-"unreachable for other computers."
 
 #. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
 #. i18n: ectx: property (text), widget (QLabel, titleLabel)
 #. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
-#: mainwindow.cpp:231 mainwindow.cpp:238 ui/mainwidget.ui:83
+#: mainwindow.cpp:223 mainwindow.cpp:230 ui/mainwidget.ui:83
 #: ui/mainwidget.ui:86 ui/mainwidget.ui:114
 #, kde-format
 msgid "KDE Desktop Sharing"
 msgstr "KDE Desktop Sharing"
 
-#: mainwindow.cpp:237
+#: mainwindow.cpp:224
+#, kde-format
+msgid ""
+"This field contains the address of your computer and the port number, "
+"separated by a colon.\n"
+"\n"
+"The address is just a hint - you can use any address that can reach your "
+"computer.\n"
+"\n"
+"Desktop Sharing tries to guess your address from your network configuration, "
+"but does not always succeed in doing so.\n"
+"\n"
+"If your computer is behind a firewall it may have a different address or be "
+"unreachable for other computers."
+msgstr ""
+"This field contains the address of your computer and the port number, "
+"separated by a colon.\n"
+"\n"
+"The address is just a hint - you can use any address that can reach your "
+"computer.\n"
+"\n"
+"Desktop Sharing tries to guess your address from your network configuration, "
+"but does not always succeed in doing so.\n"
+"\n"
+"If your computer is behind a firewall it may have a different address or be "
+"unreachable for other computers."
+
+#: mainwindow.cpp:231
 #, kde-format
 msgid ""
 "Any remote user with normal desktop sharing password will have to be "
@@ -319,32 +389,32 @@ msgstr ""
 "password, desktop sharing access will be granted without explicit "
 "confirmation."
 
-#: mainwindow.cpp:256
+#: mainwindow.cpp:249
 #, kde-format
 msgid "Network"
 msgstr "Network"
 
-#: mainwindow.cpp:257
+#: mainwindow.cpp:250
 #, kde-format
 msgid "Security"
 msgstr "Security"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:251
 #, kde-format
 msgid "Screen capture"
 msgstr "Screen capture"
 
-#: mainwindow.cpp:263
+#: mainwindow.cpp:256
 #, kde-format
 msgid "To apply framebuffer plugin setting, you need to restart the program."
 msgstr "To apply framebuffer plugin setting, you need to restart the program."
 
-#: rfbservermanager.cpp:225
+#: rfbservermanager.cpp:229
 #, kde-format
 msgid "The remote user %1 is now connected."
 msgstr "The remote user %1 is now connected."
 
-#: rfbservermanager.cpp:239
+#: rfbservermanager.cpp:243
 #, kde-format
 msgid "The remote user %1 disconnected."
 msgstr "The remote user %1 disconnected."

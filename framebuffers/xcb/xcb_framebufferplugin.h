@@ -33,9 +33,8 @@ class XCBFrameBufferPlugin: public FrameBufferPlugin
 
 public:
    XCBFrameBufferPlugin(QObject *parent, const QVariantList &args);
-   ~XCBFrameBufferPlugin() override;
 
-   FrameBuffer *frameBuffer(WId id) override;
+   FrameBuffer *frameBuffer(const QVariantMap &args) override;
 
 private:
    Q_DISABLE_COPY(XCBFrameBufferPlugin)

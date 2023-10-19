@@ -1,3 +1,72 @@
+krfb (4:22.12.3-2) unstable; urgency=medium
+
+  * Team upload.
+  * Remove inactive Uploaders.
+  * Modernize building:
+    - add the dh-sequence-kf5 build dependency to use the kf5 addon
+      automatically, removing pkg-kde-tools
+    - drop all the manually specified addons and buildsystem for dh
+  * CI: enable again blhc, as it works fine now with blhc 0.13.
+  * Re-export upstream signing key without extra signatures.
+  * Backport upstream commit 01c775f2e89b705d8375c0ccc0543fc82be53414 to
+    hook up keyevents on Wayland; patch
+    upstream_Hook-up-keyevents-on-Wayland.patch (Closes: #1032595)
+  * Fix building on non-Linux architectures, by limiting the Wayland support
+    to Linux architectures:
+    - restrict some build dependencies as linux-any: libkf5wayland-dev,
+      libwayland-dev, plasma-wayland-protocols, and qtwayland5-dev-tools
+  * Add more build dependencies to enable the dma-buf support in the pipewire
+    screencast plugin: libegl-dev, libepoxy-dev, libgbm-dev.
+  * Add more build dependencies related to the Wayland support:
+    libqt5waylandclient5-dev, and qtbase5-private-dev.
+
+ -- Pino Toscano <pino@debian.org>  Sun, 12 Mar 2023 07:23:50 +0100
+
+krfb (4:22.12.3-1) unstable; urgency=medium
+
+  [ Aurélien COUDERC ]
+  * New upstream release (22.12.3).
+  * Update build-deps and deps with the info from cmake.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Wed, 01 Mar 2023 11:57:58 +0100
+
+krfb (4:22.12.1-1) unstable; urgency=medium
+
+  [ Aurélien COUDERC ]
+  * New upstream release (22.12.1).
+  * Bump Standards-Version to 4.6.2, no change required.
+  * Add Albert Astals Cid’s master key to upstream signing keys.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Fri, 06 Jan 2023 23:38:59 +0100
+
+krfb (4:22.12.0-2) unstable; urgency=medium
+
+  * Upload with a correctly released changelog.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Sat, 10 Dec 2022 16:04:51 +0100
+
+krfb (4:22.12.0-1) unstable; urgency=medium
+
+  [ Aurélien COUDERC ]
+  * New upstream release (22.08.3).
+  * Update build-deps and deps with the info from cmake.
+  * Bump Standards-Version to 4.6.1, no change required.
+  * New upstream release (22.11.90).
+  * Update build-deps and deps with the info from cmake.
+  * New upstream release (22.12.0).
+  * Refresh lintian overrides.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Sat, 10 Dec 2022 00:13:03 +0100
+
+krfb (4:21.12.3-1) unstable; urgency=medium
+
+  [ Aurélien COUDERC ]
+  * New upstream release (21.12.3).
+  * Bump Standards-Version to 4.6.0, no change required.
+  * Refresh copyright information.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Mon, 07 Mar 2022 23:12:36 +0100
+
 krfb (4:21.08.0-1) unstable; urgency=medium
 
   [ Norbert Preining ]

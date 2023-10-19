@@ -29,7 +29,7 @@ class KRFBPRIVATE_EXPORT FrameBuffer : public QObject
 {
     Q_OBJECT
 public:
-    explicit FrameBuffer(WId id, QObject *parent = nullptr);
+    explicit FrameBuffer(QObject *parent = nullptr);
 
     ~FrameBuffer() override;
 
@@ -42,15 +42,16 @@ public:
     virtual int depth();
     virtual void startMonitor();
     virtual void stopMonitor();
+    virtual QPoint cursorPosition();
 
     virtual void getServerFormat(rfbPixelFormat &format);
 
     virtual QVariant customProperty(const QString &property) const;
+
 Q_SIGNALS:
     void frameBufferChanged();
 
 protected:
-    WId win;
     char *fb = nullptr;
     QList<QRect> tiles;
 

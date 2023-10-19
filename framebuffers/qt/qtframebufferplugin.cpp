@@ -24,21 +24,17 @@
 
 #include <KPluginFactory>
 
-K_PLUGIN_FACTORY_WITH_JSON(QtFrameBufferPluginFactory, "krfb_framebuffer_qt.json",
-			   registerPlugin<QtFrameBufferPlugin>();)
+K_PLUGIN_CLASS(QtFrameBufferPlugin)
 
 QtFrameBufferPlugin::QtFrameBufferPlugin(QObject *parent, const QVariantList &args)
     : FrameBufferPlugin(parent, args)
 {
 }
 
-QtFrameBufferPlugin::~QtFrameBufferPlugin()
+FrameBuffer *QtFrameBufferPlugin::frameBuffer(const QVariantMap &args)
 {
-}
-
-FrameBuffer *QtFrameBufferPlugin::frameBuffer(WId id)
-{
-    return new QtFrameBuffer(id);
+    Q_UNUSED(args);
+    return new QtFrameBuffer;
 }
 
 #include "qtframebufferplugin.moc"
