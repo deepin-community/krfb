@@ -21,7 +21,6 @@
 #include "invitationsrfbserver.h"
 #include "invitationsrfbclient.h"
 #include "krfbconfig.h"
-#include "rfbservermanager.h"
 #include "krfbdebug.h"
 #include <QTimer>
 #include <QApplication>
@@ -178,7 +177,7 @@ void InvitationsRfbServer::walletOpened(bool opened)
         if (m_wallet->readPassword(QStringLiteral("desktopSharingPassword"), desktopPassword) == 0 &&
                 !desktopPassword.isEmpty()) {
             m_desktopPassword = desktopPassword;
-            emit passwordChanged(m_desktopPassword);
+            Q_EMIT passwordChanged(m_desktopPassword);
         }
 
         if(m_wallet->readPassword(QStringLiteral("unattendedAccessPassword"), unattendedPassword) == 0 &&
@@ -195,7 +194,7 @@ void InvitationsRfbServer::walletOpened(bool opened)
                 "desktopPassword", QString()));
         if(!desktopPassword.isEmpty()) {
             m_desktopPassword = desktopPassword;
-            emit passwordChanged(m_desktopPassword);
+            Q_EMIT passwordChanged(m_desktopPassword);
         }
 
         unattendedPassword = KStringHandler::obscure(krfbConfig.readEntry(

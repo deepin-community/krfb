@@ -33,7 +33,6 @@ class XdpEventsPlugin : public EventsPlugin
     Q_OBJECT
 public:
     XdpEventsPlugin(QObject *parent, const QVariantList &args);
-    virtual ~XdpEventsPlugin() = default;
 
     EventHandler *eventHandler() override;
 

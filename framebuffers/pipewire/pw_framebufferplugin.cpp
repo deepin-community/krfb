@@ -22,9 +22,7 @@
 #include "pw_framebuffer.h"
 #include <KPluginFactory>
 
-
-K_PLUGIN_FACTORY_WITH_JSON(PWFrameBufferPluginFactory, "krfb_framebuffer_pw.json",
-               registerPlugin<PWFrameBufferPlugin>();)
+K_PLUGIN_CLASS(PWFrameBufferPlugin)
 
 PWFrameBufferPlugin::PWFrameBufferPlugin(QObject *parent, const QVariantList &args)
     : FrameBufferPlugin(parent, args)
@@ -32,14 +30,16 @@ PWFrameBufferPlugin::PWFrameBufferPlugin(QObject *parent, const QVariantList &ar
 }
 
 
-PWFrameBufferPlugin::~PWFrameBufferPlugin()
+FrameBuffer *PWFrameBufferPlugin::frameBuffer(const QVariantMap &args)
 {
-}
-
-
-FrameBuffer *PWFrameBufferPlugin::frameBuffer(WId id)
-{
-    auto pwfb = new PWFrameBuffer(id);
+    auto pwfb = new PWFrameBuffer;
+    if (args.contains(QLatin1String("name"))) {
+        pwfb->startVirtualMonitor(args[QStringLiteral("name")].toString(), args[QStringLiteral("resolution")].toSize(), args[QStringLiteral("scale")].toDouble());
+    } else {
+        // D-Bus is most important in XDG-Desktop-Portals init chain, no toys for us if something is wrong with XDP
+        // PipeWire connectivity is initialized after D-Bus session is started
+        pwfb->initDBus();
+    }
 
     // sanity check for dbus/wayland/pipewire errors
     if (!pwfb->isValid()) {

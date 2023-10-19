@@ -22,24 +22,17 @@
 #include "xcb_framebuffer.h"
 #include <KPluginFactory>
 
-
-K_PLUGIN_FACTORY_WITH_JSON(XCBFrameBufferPluginFactory, "krfb_framebuffer_xcb.json",
-               registerPlugin<XCBFrameBufferPlugin>();)
+K_PLUGIN_CLASS(XCBFrameBufferPlugin)
 
 XCBFrameBufferPlugin::XCBFrameBufferPlugin(QObject *parent, const QVariantList &args)
     : FrameBufferPlugin(parent, args)
 {
 }
 
-
-XCBFrameBufferPlugin::~XCBFrameBufferPlugin()
+FrameBuffer *XCBFrameBufferPlugin::frameBuffer(const QVariantMap &args)
 {
-}
-
-
-FrameBuffer *XCBFrameBufferPlugin::frameBuffer(WId id)
-{
-    return new XCBFrameBuffer(id);
+    Q_UNUSED(args);
+    return new XCBFrameBuffer;
 }
 
 #include "xcb_framebufferplugin.moc"

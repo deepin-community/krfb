@@ -33,9 +33,8 @@ class PWFrameBufferPlugin: public FrameBufferPlugin
 
 public:
    PWFrameBufferPlugin(QObject *parent, const QVariantList &args);
-   virtual ~PWFrameBufferPlugin() override;
 
-   FrameBuffer *frameBuffer(WId id) override;
+   FrameBuffer *frameBuffer(const QVariantMap &args) override;
 
 private:
    Q_DISABLE_COPY(PWFrameBufferPlugin)

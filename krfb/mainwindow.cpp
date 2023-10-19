@@ -22,7 +22,6 @@
 #include <KStandardAction>
 #include <KActionCollection>
 #include <KNewPasswordDialog>
-#include <KPluginLoader>
 #include <KPluginMetaData>
 
 #include <QIcon>
@@ -34,12 +33,12 @@
 #include <QSet>
 #include <QNetworkInterface>
 #include <QHostInfo>
-
+#include <QMessageBox>
 
 class TCP: public QWidget, public Ui::TCP
 {
 public:
-    TCP(QWidget *parent = nullptr) : QWidget(parent) {
+    explicit TCP(QWidget *parent = nullptr) : QWidget(parent) {
         setupUi(this);
     }
 };
@@ -83,15 +82,9 @@ public:
     }
 
     void fillFrameBuffersCombo() {
-        const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("krfb/framebuffer"));
-        QSet<QString> unique;
-        QVectorIterator<KPluginMetaData> i(plugins);
-        i.toBack();
-        while (i.hasPrevious()) {
-            const KPluginMetaData &metadata = i.previous();
-            if (unique.contains(metadata.pluginId())) continue;
+        const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("krfb/framebuffer"), {}, KPluginMetaData::AllowEmptyMetaData);
+        for (const KPluginMetaData &metadata : plugins) {
             cb_preferredFrameBufferPlugin->addItem(metadata.pluginId());
-            unique.insert(metadata.pluginId());
         }
     }
 };
@@ -226,16 +219,16 @@ void MainWindow::passwordChanged(const QString& password)
 
 void MainWindow::aboutConnectionAddress()
 {
-    KMessageBox::about(this,
-            i18n("This field contains the address of your computer and the port number, separated by a colon.\n\nThe address is just a hint - you can use any address that can reach your computer.\n\nDesktop Sharing tries to guess your address from your network configuration, but does not always succeed in doing so.\n\nIf your computer is behind a firewall it may have a different address or be unreachable for other computers."),
-            i18n("KDE Desktop Sharing"));
+    QMessageBox::about(this,
+            i18n("KDE Desktop Sharing"),
+            i18n("This field contains the address of your computer and the port number, separated by a colon.\n\nThe address is just a hint - you can use any address that can reach your computer.\n\nDesktop Sharing tries to guess your address from your network configuration, but does not always succeed in doing so.\n\nIf your computer is behind a firewall it may have a different address or be unreachable for other computers."));
 }
 
 void MainWindow::aboutUnattendedMode()
 {
-    KMessageBox::about(this,
-            i18n("Any remote user with normal desktop sharing password will have to be authenticated.\n\nIf unattended access is on, and the remote user provides unattended mode password, desktop sharing access will be granted without explicit confirmation."),
-            i18n("KDE Desktop Sharing"));
+    QMessageBox::about(this,
+            i18n("KDE Desktop Sharing"),
+            i18n("Any remote user with normal desktop sharing password will have to be authenticated.\n\nIf unattended access is on, and the remote user provides unattended mode password, desktop sharing access will be granted without explicit confirmation."));
 }
 
 void MainWindow::showConfiguration()

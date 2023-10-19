@@ -30,8 +30,11 @@ public:
     };
     using Streams = QList<Stream>;
 
-    PWFrameBuffer(WId winid, QObject *parent = nullptr);
+    PWFrameBuffer(QObject *parent = nullptr);
     virtual ~PWFrameBuffer() override;
+
+    void initDBus();
+    void startVirtualMonitor(const QString &name, const QSize &resolution, qreal dpr);
 
     int  depth() override;
     int  height() override;
@@ -40,6 +43,7 @@ public:
     void getServerFormat(rfbPixelFormat &format) override;
     void startMonitor() override;
     void stopMonitor() override;
+    QPoint cursorPosition() override;
 
     QVariant customProperty(const QString &property) const override;
 

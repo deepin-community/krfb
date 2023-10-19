@@ -22,7 +22,7 @@ class QtFrameBuffer : public FrameBuffer
 {
     Q_OBJECT
 public:
-    explicit QtFrameBuffer(WId id, QObject *parent = nullptr);
+    explicit QtFrameBuffer(QObject *parent = nullptr);
 
     ~QtFrameBuffer() override;
 
@@ -38,6 +38,7 @@ public Q_SLOTS:
     void updateFrameBuffer();
 
 private:
+    WId win;
     QImage fbImage;
     QTimer *t;
     QScreen *primaryScreen;

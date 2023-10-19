@@ -1,41 +1,41 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
 # Translators:
-# Ayşe Genç <ayse@uludag.org.tr>, 2005
-# Görkem Çetin <gorkem@gelecek.com.tr>, 2003
-# Görkem Çetin <gorkem@kde.org>, 2003
-# H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2010
-# Ozan Çağlayan <ozan@pardus.org.tr>, 2011
-#  <ridvancan@linux-sevenler.org>, 2004
-# Rıdvan CAN <ridvancan@linux-sevenler.org>, 2004
-# obsoleteman <tulliana@gmail.com>, 2008-2009,2011
-# Volkan Gezer <volkangezer@gmail.com>, 2013
+# Ayşe Genç <ayse@uludag.org.tr>, 2005.
+# Görkem Çetin <gorkem@gelecek.com.tr>, 2003.
+# Görkem Çetin <gorkem@kde.org>, 2003.
+# H. İbrahim Güngör <ibrahim@pardus.org.tr>, 2010.
+# Ozan Çağlayan <ozan@pardus.org.tr>, 2011.
+#  <ridvancan@linux-sevenler.org>, 2004.
+# Rıdvan CAN <ridvancan@linux-sevenler.org>, 2004.
+# obsoleteman <tulliana@gmail.com>, 2008-2009,2011.
+# Volkan Gezer <volkangezer@gmail.com>, 2013.
+# Emir SARI <emir_sari@icloud.com>, 2022, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kdenetwork-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-06-22 00:17+0000\n"
-"PO-Revision-Date: 2017-10-02 12:34+0000\n"
-"Last-Translator: Kaan <kaanozdincer@gmail.com>\n"
-"Language-Team: Turkish (http://www.transifex.com/projects/p/kdenetwork-k-tr/"
-"language/tr/)\n"
+"POT-Creation-Date: 2022-07-18 00:45+0000\n"
+"PO-Revision-Date: 2023-01-21 15:31+0300\n"
+"Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
+"Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 22.12.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Serdar Soytetir, Görkem Çetin"
+msgstr "Serdar Soytetir, Görkem Çetin, Emir SARI"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "tulliana@gmail.com, gorkem@kde.org"
+msgstr "tulliana@gmail.com, gorkem@kde.org, emir_sari@icloud.com"
 
 #: connectiondialog.cpp:39
 #, kde-format
@@ -52,20 +52,20 @@ msgstr "Bağlantıyı Kabul Et"
 msgid "Refuse Connection"
 msgstr "Bağlantıyı Reddet"
 
-#: invitationsrfbclient.cpp:73
+#: invitationsrfbclient.cpp:69
 #, kde-format
 msgid "Accepted connection from %1"
 msgstr "%1 makinesinden gelen bağlantı kabul edildi"
 
-#: invitationsrfbclient.cpp:79
+#: invitationsrfbclient.cpp:75
 #, kde-format
 msgid "Received connection from %1, on hold (waiting for confirmation)"
 msgstr "%1 adresinden bir bağlantı alındı, bekleniyor (onaylama gerekiyor)"
 
-#: invitationsrfbserver.cpp:56
+#: invitationsrfbserver.cpp:55
 #, kde-format
 msgid "%1@%2 (shared desktop)"
-msgstr "%1@%2·(paylaşılmış masaüstü)"
+msgstr "%1@%2 (paylaşılan masaüstü)"
 
 #. i18n: ectx: label, entry (startMinimized), group (MainWindow)
 #: krfb.kcfg:9
@@ -77,13 +77,13 @@ msgstr "Küçültülmüş olarak başlat"
 #: krfb.kcfg:15
 #, kde-format
 msgid "Use the default port for VNC (5900)"
-msgstr "VNC için öntanımlı portu kullan (5900)"
+msgstr "VNC için öntanımlı kapıyı kullan (5900)"
 
 #. i18n: ectx: label, entry (port), group (TCP)
 #: krfb.kcfg:19
 #, kde-format
 msgid "This is the port on which krfb will listen."
-msgstr "Bu, krfb uygulamasının dinleyeceği port numarasıdır."
+msgstr "Bu, krfb uygulamasının dinleyeceği kapı numarasıdır."
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_publishService)
 #. i18n: ectx: label, entry (publishService), group (TCP)
@@ -96,7 +96,7 @@ msgstr "Servisi yerel ağa duyur"
 #: krfb.kcfg:29
 #, kde-format
 msgid "Do not store passwords in KWallet"
-msgstr "Parolaları, KWallet içinde saklama"
+msgstr "Parolaları K Cüzdan'da saklama"
 
 #. i18n: ectx: label, entry (allowDesktopControl), group (Security)
 #: krfb.kcfg:33
@@ -123,12 +123,161 @@ msgstr "Davetsiz bağlantılar için parola."
 msgid "Preferred Frame Buffer Plugin"
 msgstr "Tercih Edilen Çerçeve Tamponu Eklentisi"
 
-#: main.cpp:41
+#: main-virtualmonitor.cpp:49
 #, kde-format
-msgid "VNC-compatible server to share desktops"
-msgstr "Masaüstü paylaşımı için VNC uyumlu sunucu"
+msgid "Creating a Virtual Monitor from %1"
+msgstr "%1 Konumundan Bir Sanal Monitör Oluşturuluyor"
 
-#: main.cpp:51
+#: main-virtualmonitor.cpp:80
+#, kde-format
+msgid "Remote Virtual Monitor"
+msgstr "Uzak Sanal Monitör"
+
+#: main-virtualmonitor.cpp:82
+#, kde-format
+msgid "Offer a Virtual Monitor that can be accessed remotely"
+msgstr "Uzaktan erişilebilecek bir sanal monitör teklif edin"
+
+#: main-virtualmonitor.cpp:84 main.cpp:98
+#, kde-format
+msgid ""
+"(c) 2009-2010, Collabora Ltd.\n"
+"(c) 2007, Alessandro Praduroux\n"
+"(c) 2001-2003, Tim Jansen\n"
+"(c) 2001, Johannes E. Schindelin\n"
+"(c) 2000-2001, Const Kaplinsky\n"
+"(c) 2000, Tridia Corporation\n"
+"(c) 1999, AT&T Laboratories Boston\n"
+msgstr ""
+"(c) 2009-2010, Collabora Ltd.\n"
+"(c) 2007, Alessandro Praduroux\n"
+"(c) 2001-2003, Tim Jansen\n"
+"(c) 2001, Johannes E. Schindelin\n"
+"(c) 2000-2001, Const Kaplinsky\n"
+"(c) 2000, Tridia Corporation\n"
+"(c) 1999, AT&T Laboratories Boston\n"
+
+#: main-virtualmonitor.cpp:91
+#, kde-format
+msgid "Virtual Monitor implementation"
+msgstr "Sanal monitör uygulaması"
+
+#: main-virtualmonitor.cpp:92 main.cpp:108
+#, kde-format
+msgid "George Kiagiadakis"
+msgstr "George Kiagiadakis"
+
+#: main-virtualmonitor.cpp:93 main.cpp:111
+#, kde-format
+msgid "Alessandro Praduroux"
+msgstr "Alessandro Praduroux"
+
+#: main-virtualmonitor.cpp:93 main.cpp:111
+#, kde-format
+msgid "KDE4 porting"
+msgstr "KDE4 geçişi"
+
+#: main-virtualmonitor.cpp:94 main.cpp:112
+#, kde-format
+msgid "Tim Jansen"
+msgstr "Tim Jansen"
+
+#: main-virtualmonitor.cpp:94 main.cpp:112
+#, kde-format
+msgid "Original author"
+msgstr "Asıl yazar"
+
+#: main-virtualmonitor.cpp:95 main.cpp:113
+#, kde-format
+msgid "Johannes E. Schindelin"
+msgstr "Johannes E. Schindelin"
+
+#: main-virtualmonitor.cpp:96 main.cpp:114
+#, kde-format
+msgid "libvncserver"
+msgstr "libvncserver"
+
+#: main-virtualmonitor.cpp:97 main.cpp:115
+#, kde-format
+msgid "Const Kaplinsky"
+msgstr "Const Kaplinsky"
+
+#: main-virtualmonitor.cpp:98 main.cpp:116
+#, kde-format
+msgid "TightVNC encoder"
+msgstr "TightVNC kodlayıcı"
+
+#: main-virtualmonitor.cpp:99 main.cpp:117
+#, kde-format
+msgid "Tridia Corporation"
+msgstr "Tridia Corporation"
+
+#: main-virtualmonitor.cpp:100 main.cpp:118
+#, kde-format
+msgid "ZLib encoder"
+msgstr "ZLib kodlayıcı"
+
+#: main-virtualmonitor.cpp:101 main.cpp:119
+#, kde-format
+msgid "AT&T Laboratories Boston"
+msgstr "Boston AT&T Laboratuvarları"
+
+#: main-virtualmonitor.cpp:102 main.cpp:120
+#, kde-format
+msgid "original VNC encoders and protocol design"
+msgstr "VNC kodlayıcılar ve tasarım"
+
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "Logical resolution of the new monitor"
+msgstr "Yeni monitörün mantıksal çözünürlüğü"
+
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "resolution"
+msgstr "çözünürlük"
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "Name of the monitor"
+msgstr "Monitörün adı"
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "name"
+msgstr "ad"
+
+#: main-virtualmonitor.cpp:112
+#, kde-format
+msgid "Password for the client to connect to it"
+msgstr "İstemcinin bağlanmak için kullanacağı parola"
+
+#: main-virtualmonitor.cpp:112
+#, kde-format
+msgid "password"
+msgstr "parola"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "The device-pixel-ratio of the device, the scaling factor"
+msgstr "Aygıtın aygıt-piksel oranı, ölçekleme faktörü"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "dpr"
+msgstr "dpr"
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "The port we will be listening to"
+msgstr "Dinlenecek kapı"
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "number"
+msgstr "numara"
+
+#: main.cpp:49
 #, kde-format
 msgid ""
 "Your X11 Server does not support the required XTest extension version 2.2. "
@@ -136,142 +285,74 @@ msgid ""
 msgstr ""
 "X sunucunuz XTest sürüm 2.2 uzantısını desteklemiyor. Paylaşım yapılamaz."
 
-#: main.cpp:53 main.cpp:152
+#: main.cpp:51 main.cpp:150
 #, kde-format
 msgid "Desktop Sharing Error"
 msgstr "Masaüstü Paylaşım Hatası"
 
-#: main.cpp:96
+#: main.cpp:94
 #, kde-format
 msgid "Desktop Sharing"
 msgstr "Masaüstü Paylaşımı"
 
-#: main.cpp:100
+#: main.cpp:96
 #, kde-format
-msgid ""
-"(c) 2009-2010, Collabora Ltd.\n"
-"(c) 2007, Alessandro Praduroux\n"
-"(c) 2001-2003, Tim Jansen\n"
-"(c) 2001, Johannes E. Schindelin\n"
-"(c) 2000-2001, Const Kaplinsky\n"
-"(c) 2000, Tridia Corporation\n"
-"(c) 1999, AT&T Laboratories Boston\n"
-msgstr ""
-"(c) 2009-2010, Collabora Ltd.\n"
-"(c) 2007, Alessandro Praduroux\n"
-"(c) 2001-2003, Tim Jansen\n"
-"(c) 2001, Johannes E. Schindelin\n"
-"(c) 2000-2001, Const Kaplinsky\n"
-"(c) 2000, Tridia Corporation\n"
-"(c) 1999, AT&T Laboratories Boston\n"
+msgid "VNC-compatible server to share desktops"
+msgstr "Masaüstü paylaşımı için VNC uyumlu sunucu"
 
-#: main.cpp:107
+#: main.cpp:105
 #, kde-format
 msgid "George Goldberg"
 msgstr "George Goldberg"
 
-#: main.cpp:108
+#: main.cpp:106
 #, kde-format
 msgid "Telepathy tubes support"
 msgstr "Telepathy tubes desteği"
 
-#: main.cpp:110
-#, kde-format
-msgid "George Kiagiadakis"
-msgstr "George Kiagiadakis"
-
-#: main.cpp:113
-#, kde-format
-msgid "Alessandro Praduroux"
-msgstr "Alessandro Praduroux"
-
-#: main.cpp:113
-#, kde-format
-msgid "KDE4 porting"
-msgstr "KDE4 geçişi"
-
-#: main.cpp:114
-#, kde-format
-msgid "Tim Jansen"
-msgstr "Tim Jansen"
-
-#: main.cpp:114
-#, kde-format
-msgid "Original author"
-msgstr "Asıl yazar"
-
-#: main.cpp:115
-#, kde-format
-msgid "Johannes E. Schindelin"
-msgstr "Johannes E. Schindelin"
-
-#: main.cpp:116
-#, kde-format
-msgid "libvncserver"
-msgstr "libvncserver"
-
-#: main.cpp:117
-#, kde-format
-msgid "Const Kaplinsky"
-msgstr "Const Kaplinsky"
-
-#: main.cpp:118
-#, kde-format
-msgid "TightVNC encoder"
-msgstr "TightVNC kodlayıcı"
-
-#: main.cpp:119
-#, kde-format
-msgid "Tridia Corporation"
-msgstr "Tridia Corporation"
-
-#: main.cpp:120
-#, kde-format
-msgid "ZLib encoder"
-msgstr "ZLib kodlayıcı"
-
-#: main.cpp:121
-#, kde-format
-msgid "AT&T Laboratories Boston"
-msgstr "Boston AT&T Laboratuvarları"
-
-#: main.cpp:122
-#, kde-format
-msgid "original VNC encoders and protocol design"
-msgstr "VNC kodlayıcılar ve tasarım"
-
-#: main.cpp:128
+#: main.cpp:126
 #, kde-format
 msgid "Do not show the invitations management dialog at startup"
 msgstr "Başlangıçta davet yönetimi penceresini gösterme"
 
-#: main.cpp:150
+#: main.cpp:148
 #, kde-format
 msgid ""
 "Desktop Sharing is not running under an X11 Server or Wayland.\n"
 "Other display servers are currently not supported."
 msgstr ""
+"Masaüstü Paylaşımı, bir X11 veya Wayland sunucusu altında çalışmıyor.\n"
+"Başka görüntüleme sunucuları şu anda desteklenmemektedir."
 
-#: mainwindow.cpp:53
+#: mainwindow.cpp:52
 #, kde-format
 msgid "Storing passwords in config file is insecure!"
-msgstr ""
+msgstr "Parolaları yapılandırma dosyasında saklamak güvenli değildir!"
 
-#: mainwindow.cpp:196
+#: mainwindow.cpp:189
 #, kde-format
 msgid "Enter a new password for Unattended Access"
 msgstr "Katılımsız Erişim için yeni bir parola girin"
 
-#: mainwindow.cpp:207
+#: mainwindow.cpp:200
 #, kde-format
 msgid ""
 "Failed to start the krfb server. Desktop sharing will not work. Try setting "
 "another port in the settings and restart krfb."
 msgstr ""
 "krfb sunucusu başlatılamadı. Masaüstü paylaşım çalışmayacak. Ayarlardan "
-"başka bir port seçip krfb'yi yeniden başlatmayı deneyin."
+"başka bir kapı seçip krfb'yi yeniden başlatmayı deneyin."
 
-#: mainwindow.cpp:230
+#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
+#: mainwindow.cpp:223 mainwindow.cpp:230 ui/mainwidget.ui:83
+#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
+#, kde-format
+msgid "KDE Desktop Sharing"
+msgstr "KDE Masüstü Paylaşımı"
+
+#: mainwindow.cpp:224
 #, kde-format
 msgid ""
 "This field contains the address of your computer and the port number, "
@@ -287,28 +368,18 @@ msgid ""
 "unreachable for other computers."
 msgstr ""
 "Bu alan aralarında iki nokta üst üste karakteri olacak şekilde "
-"bilgisayarınızın adını ve bağlantı noktasını içerir.\n"
+"bilgisayarınızın adını ve kapı numarasını içerir.\n"
 "\n"
 "Bu adres sadece bir ipucu niteliği taşır. Bilgisayarınıza erişmek için "
 "herhangi bir adresi kullanabilirsiniz.\n"
 "\n"
 "Masaüstü Paylaşımı ağ ayarlarınıza bakarak adresinizi tahmin etmeye çalışır. "
-"Bu işlem her zaman başarılı\n"
+"Bu işlem her zaman başarılı olmayabilir\n"
 "\n"
-"olmayabilir. Eğer bilgisayarınız bir güvenlik duvarı arkasında ise adres "
-"farklı olabilir ve/veya diğer bilgisayarlar tarafından\n"
-"erişilmez bir durumda olabilirsiniz."
+"Eğer bilgisayarınız bir güvenlik duvarı arkasında ise adres farklı olabilir "
+"ve/veya diğer bilgisayarlar tarafından erişilmez bir durumda olabilirsiniz."
 
-#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
-#: mainwindow.cpp:231 mainwindow.cpp:238 ui/mainwidget.ui:83
-#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
-#, kde-format
-msgid "KDE Desktop Sharing"
-msgstr "KDE Masüstü Paylaşımı"
-
-#: mainwindow.cpp:237
+#: mainwindow.cpp:231
 #, kde-format
 msgid ""
 "Any remote user with normal desktop sharing password will have to be "
@@ -324,34 +395,34 @@ msgstr ""
 "Sahipsiz erişim açıksa ve uzak kullanıcı sahipsiz kipte parola sağlıyorsa, "
 "açık bir onay almadan masaüstü paylaşım erişimi sağlanacaktır."
 
-#: mainwindow.cpp:256
+#: mainwindow.cpp:249
 #, kde-format
 msgid "Network"
 msgstr "Ağ"
 
-#: mainwindow.cpp:257
+#: mainwindow.cpp:250
 #, kde-format
 msgid "Security"
 msgstr "Güvenlik"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:251
 #, kde-format
 msgid "Screen capture"
 msgstr "Ekran yakalama"
 
-#: mainwindow.cpp:263
+#: mainwindow.cpp:256
 #, kde-format
 msgid "To apply framebuffer plugin setting, you need to restart the program."
 msgstr ""
 "Framebuffer eklentisi ayarını uygulamak için, programı yeniden başlatmanız "
 "gerekir."
 
-#: rfbservermanager.cpp:225
+#: rfbservermanager.cpp:229
 #, kde-format
 msgid "The remote user %1 is now connected."
 msgstr "Uzaktaki kullanıcı %1 şimdi bağlandı."
 
-#: rfbservermanager.cpp:239
+#: rfbservermanager.cpp:243
 #, kde-format
 msgid "The remote user %1 disconnected."
 msgstr "Uzaktaki kullanıcı %1 ile bağlantı kesildi."
@@ -416,22 +487,21 @@ msgstr "Uzak bağlantıların masaüstünüzü yönetmesine izin verin"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_noWallet)
 #: ui/configsecurity.ui:27
-#, fuzzy, kde-format
-#| msgid "Do not store passwords in KWallet"
+#, kde-format
 msgid "Do not store passwords using KDE wallet"
-msgstr "Parolaları, KWallet içinde saklama"
+msgstr "Parolaları KDE Cüzdan içinde saklama"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_useDefaultPort)
 #: ui/configtcp.ui:26
 #, kde-format
 msgid "Use default port"
-msgstr "Öntanımlı portu kullan"
+msgstr "Öntanımlı kapıyı kullan"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/configtcp.ui:50
 #, kde-format
 msgid "Listening port:"
-msgstr "Dinlenecek port:"
+msgstr "Dinleme kapısı:"
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel5)
 #: ui/connectionwidget.ui:47
@@ -447,7 +517,7 @@ msgid ""
 "allow the remote user to watch your desktop. "
 msgstr ""
 "Birisi bilgisayarınıza bağlantı kurmak istiyor. Bu izni vermekle "
-"kullanıcının şu an çalıştığınız masaüstünü görmesini sağlayacaksınız."
+"kullanıcının şu an çalıştığınız masaüstünü görmesini sağlayacaksınız. "
 
 #. i18n: ectx: property (text), widget (QLabel, TextLabel1)
 #: ui/connectionwidget.ui:102
@@ -576,7 +646,7 @@ msgstr ""
 #: ui/mainwidget.ui:314
 #, kde-format
 msgid "TemporaryPassword"
-msgstr "GeçiciParola"
+msgstr "Geçici Parola"
 
 #. i18n: ectx: property (whatsThis), widget (QGroupBox, unattendedGroupBox)
 #. i18n: ectx: property (text), widget (QLabel, unattendedAboutLabel)
@@ -640,51 +710,3 @@ msgstr "Katılımsız Erişim için parolayı değiştir"
 #, kde-format
 msgid "&Change Unattended Password"
 msgstr "Katılımsız Erişim Parolasını &Değiştir"
-
-#~ msgid "Welcome to KDE Desktop Sharing"
-#~ msgstr "KDE Masaüstü Paylaşımına Hoş Geldiniz"
-
-#~ msgid ""
-#~ "KDE Desktop Sharing allows you to invite somebody at a remote location to "
-#~ "watch and possibly control your desktop. <a href=\"whatsthis\">More about "
-#~ "invitations...</a>"
-#~ msgstr ""
-#~ "KDE Masaüstü paylaşımı bir kişiyi masaüstünüzü görecek ve "
-#~ "denetleyebilecek şekilde davet etmenizi sağlar.<a href=\"whatsthis"
-#~ "\">Davetler hakkında daha fazla bilgi...</a>"
-
-#~ msgid ""
-#~ "Create a new invitation and display the connection data. Use this option "
-#~ "if you want to invite somebody personally, for example, to give the "
-#~ "connection data over the phone."
-#~ msgstr ""
-#~ "Yeni bir davet oluşturur ya da bağlantı verisini gösterir. Bu seçeneği "
-#~ "kişisel olarak birini davet etmek isterseniz kullanın, örneğin, o "
-#~ "bağlantıya telefon üstünde veriyi verirken."
-
-#~ msgid "Create &Personal Invitation..."
-#~ msgstr "&Kişisel Davet Oluştur"
-
-#~ msgid ""
-#~ "This button will start your email application with a pre-configured text "
-#~ "that explains to the recipient how to connect to your computer. "
-#~ msgstr ""
-#~ "Bilgisayarınıza bağlanmak için alıcıya neler yapması gerektiğini "
-#~ "açıklayan bir ön-yapılandırma metinini göndermek için bu düğmeyle e-posta "
-#~ "uygulamasını başlatabilirsiniz."
-
-#~ msgid "Invite via &Email..."
-#~ msgstr "&E-posta ile Davet et..."
-
-#~ msgid "&Manage Invitations (%1)..."
-#~ msgstr "Davetleri &Düzenle (%1)..."
-
-#~ msgid ""
-#~ "You have requested to share your desktop with %1. If you proceed, you "
-#~ "will allow the remote user to watch your desktop."
-#~ msgstr ""
-#~ "%1 makinesi masaüstünüzü paylaşmanızı istiyor. Bu izni vermekle "
-#~ "kullanıcının şimdi çalıştığınız masaüstünü görmesine izin vereceksiniz."
-
-#~ msgid "Confirmation"
-#~ msgstr "Doğrulama"

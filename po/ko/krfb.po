@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: krfb\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-06-22 00:17+0000\n"
-"PO-Revision-Date: 2021-07-18 13:35+0200\n"
+"POT-Creation-Date: 2022-07-18 00:45+0000\n"
+"PO-Revision-Date: 2021-11-12 00:42+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
 "Language: ko\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 20.12.3\n"
+"X-Generator: Lokalize 21.08.1\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -43,17 +43,17 @@ msgstr "연결 수락"
 msgid "Refuse Connection"
 msgstr "연결 거부"
 
-#: invitationsrfbclient.cpp:73
+#: invitationsrfbclient.cpp:69
 #, kde-format
 msgid "Accepted connection from %1"
 msgstr "%1의 연결을 수락함"
 
-#: invitationsrfbclient.cpp:79
+#: invitationsrfbclient.cpp:75
 #, kde-format
 msgid "Received connection from %1, on hold (waiting for confirmation)"
 msgstr "%1에서 연결 들어옴, 대기 중 (확인 기다리는 중)"
 
-#: invitationsrfbserver.cpp:56
+#: invitationsrfbserver.cpp:55
 #, kde-format
 msgid "%1@%2 (shared desktop)"
 msgstr "%1@%2 (공유된 데스크톱)"
@@ -114,12 +114,161 @@ msgstr "초대장 없는 연결에 사용할 암호입니다."
 msgid "Preferred Frame Buffer Plugin"
 msgstr "선호하는 프레임버퍼 플러그인"
 
-#: main.cpp:41
+#: main-virtualmonitor.cpp:49
 #, kde-format
-msgid "VNC-compatible server to share desktops"
-msgstr "데스크톱을 공유하는 VNC 호환 서버"
+msgid "Creating a Virtual Monitor from %1"
+msgstr "%1에서 가상 모니터 만들기"
 
-#: main.cpp:51
+#: main-virtualmonitor.cpp:80
+#, kde-format
+msgid "Remote Virtual Monitor"
+msgstr "원격 가상 모니터"
+
+#: main-virtualmonitor.cpp:82
+#, kde-format
+msgid "Offer a Virtual Monitor that can be accessed remotely"
+msgstr "원격에서 접근할 수 있는 가상 모니터 제공"
+
+#: main-virtualmonitor.cpp:84 main.cpp:98
+#, kde-format
+msgid ""
+"(c) 2009-2010, Collabora Ltd.\n"
+"(c) 2007, Alessandro Praduroux\n"
+"(c) 2001-2003, Tim Jansen\n"
+"(c) 2001, Johannes E. Schindelin\n"
+"(c) 2000-2001, Const Kaplinsky\n"
+"(c) 2000, Tridia Corporation\n"
+"(c) 1999, AT&T Laboratories Boston\n"
+msgstr ""
+"(c) 2009-2010, Collabora Ltd.\n"
+"(c) 2007, Alessandro Praduroux\n"
+"(c) 2001-2003, Tim Jansen\n"
+"(c) 2001, Johannes E. Schindelin\n"
+"(c) 2000-2001, Const Kaplinsky\n"
+"(c) 2000, Tridia Corporation\n"
+"(c) 1999, AT&T Laboratories Boston\n"
+
+#: main-virtualmonitor.cpp:91
+#, kde-format
+msgid "Virtual Monitor implementation"
+msgstr "가상 모니터 구현"
+
+#: main-virtualmonitor.cpp:92 main.cpp:108
+#, kde-format
+msgid "George Kiagiadakis"
+msgstr "George Kiagiadakis"
+
+#: main-virtualmonitor.cpp:93 main.cpp:111
+#, kde-format
+msgid "Alessandro Praduroux"
+msgstr "Alessandro Praduroux"
+
+#: main-virtualmonitor.cpp:93 main.cpp:111
+#, kde-format
+msgid "KDE4 porting"
+msgstr "KDE4 이식"
+
+#: main-virtualmonitor.cpp:94 main.cpp:112
+#, kde-format
+msgid "Tim Jansen"
+msgstr "Tim Jansen"
+
+#: main-virtualmonitor.cpp:94 main.cpp:112
+#, kde-format
+msgid "Original author"
+msgstr "원 작성자"
+
+#: main-virtualmonitor.cpp:95 main.cpp:113
+#, kde-format
+msgid "Johannes E. Schindelin"
+msgstr "Johannes E. Schindelin"
+
+#: main-virtualmonitor.cpp:96 main.cpp:114
+#, kde-format
+msgid "libvncserver"
+msgstr "libvncserver"
+
+#: main-virtualmonitor.cpp:97 main.cpp:115
+#, kde-format
+msgid "Const Kaplinsky"
+msgstr "Const Kaplinsky"
+
+#: main-virtualmonitor.cpp:98 main.cpp:116
+#, kde-format
+msgid "TightVNC encoder"
+msgstr "TightVNC 인코더"
+
+#: main-virtualmonitor.cpp:99 main.cpp:117
+#, kde-format
+msgid "Tridia Corporation"
+msgstr "Tridia Corporation"
+
+#: main-virtualmonitor.cpp:100 main.cpp:118
+#, kde-format
+msgid "ZLib encoder"
+msgstr "ZLib 인코더"
+
+#: main-virtualmonitor.cpp:101 main.cpp:119
+#, kde-format
+msgid "AT&T Laboratories Boston"
+msgstr "AT&T Laboratories Boston"
+
+#: main-virtualmonitor.cpp:102 main.cpp:120
+#, kde-format
+msgid "original VNC encoders and protocol design"
+msgstr "원본 VNC 인코더와 프로토콜 디자인"
+
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "Logical resolution of the new monitor"
+msgstr "새 모니터의 논리적 해상도"
+
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "resolution"
+msgstr "resolution"
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "Name of the monitor"
+msgstr "모니터 이름"
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "name"
+msgstr "name"
+
+#: main-virtualmonitor.cpp:112
+#, kde-format
+msgid "Password for the client to connect to it"
+msgstr "클라이언트에서 연결할 때 사용할 암호"
+
+#: main-virtualmonitor.cpp:112
+#, kde-format
+msgid "password"
+msgstr "password"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "The device-pixel-ratio of the device, the scaling factor"
+msgstr "장치의 크기 조정 배율"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "dpr"
+msgstr "dpr"
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "The port we will be listening to"
+msgstr "들을 포트"
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "number"
+msgstr "number"
+
+#: main.cpp:49
 #, kde-format
 msgid ""
 "Your X11 Server does not support the required XTest extension version 2.2. "
@@ -128,116 +277,37 @@ msgstr ""
 "X11 서버에서 XTest 확장 2.2를 지원하지 않습니다. 데스크톱 공유를 사용할 수 없"
 "습니다."
 
-#: main.cpp:53 main.cpp:152
+#: main.cpp:51 main.cpp:150
 #, kde-format
 msgid "Desktop Sharing Error"
 msgstr "데스크톱 공유 오류"
 
-#: main.cpp:96
+#: main.cpp:94
 #, kde-format
 msgid "Desktop Sharing"
 msgstr "데스크톱 공유"
 
-#: main.cpp:100
+#: main.cpp:96
 #, kde-format
-msgid ""
-"(c) 2009-2010, Collabora Ltd.\n"
-"(c) 2007, Alessandro Praduroux\n"
-"(c) 2001-2003, Tim Jansen\n"
-"(c) 2001, Johannes E. Schindelin\n"
-"(c) 2000-2001, Const Kaplinsky\n"
-"(c) 2000, Tridia Corporation\n"
-"(c) 1999, AT&T Laboratories Boston\n"
-msgstr ""
-"(c) 2009-2010, Collabora Ltd.\n"
-"(c) 2007, Alessandro Praduroux\n"
-"(c) 2001-2003, Tim Jansen\n"
-"(c) 2001, Johannes E. Schindelin\n"
-"(c) 2000-2001, Const Kaplinsky\n"
-"(c) 2000, Tridia Corporation\n"
-"(c) 1999, AT&T Laboratories Boston\n"
+msgid "VNC-compatible server to share desktops"
+msgstr "데스크톱을 공유하는 VNC 호환 서버"
 
-#: main.cpp:107
+#: main.cpp:105
 #, kde-format
 msgid "George Goldberg"
 msgstr "George Goldberg"
 
-#: main.cpp:108
+#: main.cpp:106
 #, kde-format
 msgid "Telepathy tubes support"
 msgstr "Telepathy Tubes 지원"
 
-#: main.cpp:110
-#, kde-format
-msgid "George Kiagiadakis"
-msgstr "George Kiagiadakis"
-
-#: main.cpp:113
-#, kde-format
-msgid "Alessandro Praduroux"
-msgstr "Alessandro Praduroux"
-
-#: main.cpp:113
-#, kde-format
-msgid "KDE4 porting"
-msgstr "KDE4 이식"
-
-#: main.cpp:114
-#, kde-format
-msgid "Tim Jansen"
-msgstr "Tim Jansen"
-
-#: main.cpp:114
-#, kde-format
-msgid "Original author"
-msgstr "원 작성자"
-
-#: main.cpp:115
-#, kde-format
-msgid "Johannes E. Schindelin"
-msgstr "Johannes E. Schindelin"
-
-#: main.cpp:116
-#, kde-format
-msgid "libvncserver"
-msgstr "libvncserver"
-
-#: main.cpp:117
-#, kde-format
-msgid "Const Kaplinsky"
-msgstr "Const Kaplinsky"
-
-#: main.cpp:118
-#, kde-format
-msgid "TightVNC encoder"
-msgstr "TightVNC 인코더"
-
-#: main.cpp:119
-#, kde-format
-msgid "Tridia Corporation"
-msgstr "Tridia Corporation"
-
-#: main.cpp:120
-#, kde-format
-msgid "ZLib encoder"
-msgstr "ZLib 인코더"
-
-#: main.cpp:121
-#, kde-format
-msgid "AT&T Laboratories Boston"
-msgstr "AT&T Laboratories Boston"
-
-#: main.cpp:122
-#, kde-format
-msgid "original VNC encoders and protocol design"
-msgstr "원본 VNC 인코더와 프로토콜 디자인"
-
-#: main.cpp:128
+#: main.cpp:126
 #, kde-format
 msgid "Do not show the invitations management dialog at startup"
 msgstr "시작할 때 초대장 관리 대화 상자 보이지 않기"
 
-#: main.cpp:150
+#: main.cpp:148
 #, kde-format
 msgid ""
 "Desktop Sharing is not running under an X11 Server or Wayland.\n"
@@ -246,17 +316,17 @@ msgstr ""
 "데스크톱 공유가 X11이나 Wayland 서버에서 실행 중이 아닙니다.\n"
 "다른 디스플레이 서버는 현재 지원하지 않습니다."
 
-#: mainwindow.cpp:53
+#: mainwindow.cpp:52
 #, kde-format
 msgid "Storing passwords in config file is insecure!"
 msgstr "설정 파일에 암호를 저장하는 것은 안전하지 않습니다!"
 
-#: mainwindow.cpp:196
+#: mainwindow.cpp:189
 #, kde-format
 msgid "Enter a new password for Unattended Access"
 msgstr "새 자동 접근 암호를 입력하십시오"
 
-#: mainwindow.cpp:207
+#: mainwindow.cpp:200
 #, kde-format
 msgid ""
 "Failed to start the krfb server. Desktop sharing will not work. Try setting "
@@ -265,7 +335,16 @@ msgstr ""
 "krfb 서버를 시작할 수 없습니다. 데스크톱 공유를 사용할 수 없습니다. 설정에서 "
 "포트 번호를 바꾸고 다시 시작해 보십시오."
 
-#: mainwindow.cpp:230
+#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
+#: mainwindow.cpp:223 mainwindow.cpp:230 ui/mainwidget.ui:83
+#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
+#, kde-format
+msgid "KDE Desktop Sharing"
+msgstr "KDE 데스크톱 공유"
+
+#: mainwindow.cpp:224
 #, kde-format
 msgid ""
 "This field contains the address of your computer and the port number, "
@@ -292,16 +371,7 @@ msgstr ""
 "방화벽 뒤에 있는 경우라면 다른 주소를 가지고 있거나 다른 컴퓨터에서 접근하지 "
 "못할 수 있습니다."
 
-#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
-#: mainwindow.cpp:231 mainwindow.cpp:238 ui/mainwidget.ui:83
-#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
-#, kde-format
-msgid "KDE Desktop Sharing"
-msgstr "KDE 데스크톱 공유"
-
-#: mainwindow.cpp:237
+#: mainwindow.cpp:231
 #, kde-format
 msgid ""
 "Any remote user with normal desktop sharing password will have to be "
@@ -316,32 +386,32 @@ msgstr ""
 "자동 모드가 켜져 있고 원격 사용자가 자동 모드 암호를 알고 있으면 확인 없이 데"
 "스크톱 접근이 허가됩니다."
 
-#: mainwindow.cpp:256
+#: mainwindow.cpp:249
 #, kde-format
 msgid "Network"
 msgstr "네트워크"
 
-#: mainwindow.cpp:257
+#: mainwindow.cpp:250
 #, kde-format
 msgid "Security"
 msgstr "보안"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:251
 #, kde-format
 msgid "Screen capture"
 msgstr "화면 캡처"
 
-#: mainwindow.cpp:263
+#: mainwindow.cpp:256
 #, kde-format
 msgid "To apply framebuffer plugin setting, you need to restart the program."
 msgstr "프레임버퍼 플러그인 설정을 적용하려면 프로그램을 다시 시작해야 합니다."
 
-#: rfbservermanager.cpp:225
+#: rfbservermanager.cpp:229
 #, kde-format
 msgid "The remote user %1 is now connected."
 msgstr "원격 사용자 %1이(가) 접속했습니다."
 
-#: rfbservermanager.cpp:239
+#: rfbservermanager.cpp:243
 #, kde-format
 msgid "The remote user %1 disconnected."
 msgstr "원격 사용자 %1이(가) 연결을 끊었습니다."
@@ -522,8 +592,8 @@ msgid ""
 "Address required by remote users to connect to your desktop. Click about "
 "button on the right for more info."
 msgstr ""
-"데스크톱에 연결할 때 사용할 주소입니다. 오른쪽에 있는 단추를 누르면 자세한 정"
-"보를 볼 수 있습니다."
+"데스크톱에 연결할 때 사용할 주소입니다. 오른쪽에 있는 단추를 클릭하면 자세한 "
+"정보를 볼 수 있습니다."
 
 #. i18n: ectx: property (text), widget (QLabel, addressDisplayLabel)
 #: ui/mainwidget.ui:238
@@ -557,7 +627,7 @@ msgid ""
 "button on the right to change password."
 msgstr ""
 "원격 사용자가 데스크톱에 연결할 때 사용할 암호입니다. 오른쪽에 있는 편집 단추"
-"를 눌러서 암호를 변경하십시오."
+"를 클릭해서 암호를 변경하십시오."
 
 #. i18n: ectx: property (text), widget (QLabel, passwordDisplayLabel)
 #: ui/mainwidget.ui:314
@@ -591,8 +661,8 @@ msgid ""
 "right to know more."
 msgstr ""
 "자동 접근 모드를 사용하면 암호를 알고 있는 원격 사용자가 확인 없이 데스크톱"
-"에 접근할 수 있도록 합니다. \"정보\" 단추를 누르면 더 많은 정보를 알아볼 수 "
-"있습니다."
+"에 접근할 수 있도록 합니다. \"정보\" 단추를 클릭하면 더 많은 정보를 알아볼 "
+"수 있습니다."
 
 #. i18n: ectx: property (whatsThis), widget (QToolButton, unattendedAboutButton)
 #: ui/mainwidget.ui:394
@@ -607,8 +677,9 @@ msgid ""
 "Starts/Stops unattended access to your desktop. Click on button on right to "
 "change password, and \"About\" button to know more."
 msgstr ""
-"데스크톱 자동 접근을 활성화/비활성화합니다. 오른쪽에 있는 단추를 눌러서 암호"
-"를 변경할 수 있으며, \"정보\" 단추를 눌러서 더 많은 정보를 얻을 수 있습니다."
+"데스크톱 자동 접근을 활성화/비활성화합니다. 오른쪽에 있는 단추를 클릭해서 암"
+"호를 변경할 수 있으며, \"정보\" 단추를 클릭해서 더 많은 정보를 얻을 수 있습니"
+"다."
 
 #. i18n: ectx: property (text), widget (QCheckBox, enableUnattendedCheckBox)
 #: ui/mainwidget.ui:440

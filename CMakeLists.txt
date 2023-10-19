@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.16)
 
 # KDE Application Version, managed by release script
-set (RELEASE_SERVICE_VERSION_MAJOR "21")
-set (RELEASE_SERVICE_VERSION_MINOR "08")
-set (RELEASE_SERVICE_VERSION_MICRO "0")
+set (RELEASE_SERVICE_VERSION_MAJOR "22")
+set (RELEASE_SERVICE_VERSION_MINOR "12")
+set (RELEASE_SERVICE_VERSION_MICRO "3")
 set (RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_VERSION_MINOR}.${RELEASE_SERVICE_VERSION_MICRO}")
 
 project(krfb VERSION ${RELEASE_SERVICE_VERSION})
 
-set(QT_MIN_VERSION 5.15.0)
-set(KF5_MIN_VERSION 5.83.0)
+set(QT_MIN_VERSION 5.15.2)
+set(KF5_MIN_VERSION 5.91.0)
 
 find_package(ECM ${KF5_MIN_VERSION} NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
@@ -21,6 +21,7 @@ include(ECMInstallIcons)
 include(ECMAddAppIcon)
 include(ECMSetupVersion)
 include(ECMQtDeclareLoggingCategory)
+include(ECMDeprecationSettings)
 include(FeatureSummary)
 include(CheckIncludeFile)
 
@@ -60,17 +61,9 @@ if(WIN32)
     set(CMAKE_REQUIRED_INCLUDES  ${KDEWIN32_INCLUDES})
 endif(WIN32)
 
-add_definitions(
-    -DQT_DEPRECATED_WARNINGS
-    -DQT_DISABLE_DEPRECATED_BEFORE=0x050600
-    -DQT_USE_QSTRINGBUILDER
-    -DQT_NO_CAST_TO_ASCII
-    -DQT_NO_CAST_FROM_ASCII
-    -DQT_NO_CAST_FROM_BYTEARRAY
-    -DQT_STRICT_ITERATORS
-    -DQT_NO_URL_CAST_FROM_STRING
-    -DQT_NO_SIGNALS_SLOTS_KEYWORDS
-    -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
+ecm_set_disabled_deprecation_versions(
+    QT 5.15.2
+    KF 5.91
 )
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} )
@@ -78,8 +71,20 @@ include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} )
 find_package(LibVNCServer REQUIRED)
 
 
-pkg_check_modules(PipeWire IMPORTED_TARGET libpipewire-0.3)
+option(DISABLE_PIPEWIRE "Disable PipeWire support." OFF)
+if(NOT DISABLE_PIPEWIRE)
+    pkg_check_modules(PipeWire IMPORTED_TARGET libpipewire-0.3)
+endif()
 add_feature_info(PipeWire PipeWire_FOUND "Required for pipewire screencast plugin")
+find_package(PlasmaWaylandProtocols 1.5.0)
+
+if(PipeWire_FOUND AND PlasmaWaylandProtocols_FOUND)
+    find_package(KF5Wayland ${KF5_MIN_VERSION})
+    find_package(QtWaylandScanner REQUIRED)
+    find_package(Qt5WaylandClient)
+    find_package(Qt5XkbCommonSupport)
+    find_package(Wayland REQUIRED COMPONENTS Client)
+endif()
 
 find_package(gbm)
 set_package_properties(gbm PROPERTIES
@@ -115,17 +120,14 @@ include_directories ("${CMAKE_CURRENT_BINARY_DIR}/krfb"
                      "${CMAKE_CURRENT_SOURCE_DIR}/krfb/ui"
 )
 
-if(Q_WS_X11)
-  if(NOT X11_XTest_FOUND)
-    message(FATAL_ERROR "krfb requires the libXtst (https://xorg.freedesktop.org) to be built")
-  endif(NOT X11_XTest_FOUND)
-endif(Q_WS_X11)
-
 add_subdirectory(events)
 add_subdirectory(krfb)
 add_subdirectory(framebuffers)
 add_subdirectory(doc)
 add_subdirectory(icons)
+
+ki18n_install(po)
+kdoctools_install(po)
 
 ecm_qt_install_logging_categories(
     EXPORT KRFB
@@ -134,7 +136,3 @@ ecm_qt_install_logging_categories(
 )
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
-ki18n_install(po)
-if (KF5DocTools_FOUND)
- kdoctools_install(po)
-endif()

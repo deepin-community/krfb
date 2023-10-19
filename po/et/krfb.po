@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: krfb\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2021-06-22 00:17+0000\n"
+"POT-Creation-Date: 2022-07-18 00:45+0000\n"
 "PO-Revision-Date: 2019-11-09 14:59+0200\n"
 "Last-Translator: Marek Laane <qiilaq69@gmail.com>\n"
 "Language-Team: Estonian <kde-et@lists.linux.ee>\n"
@@ -43,17 +43,17 @@ msgstr "Nõustu ühendusega"
 msgid "Refuse Connection"
 msgstr "Keeldu ühendusest"
 
-#: invitationsrfbclient.cpp:73
+#: invitationsrfbclient.cpp:69
 #, kde-format
 msgid "Accepted connection from %1"
 msgstr "Nõus %1 ühendusega"
 
-#: invitationsrfbclient.cpp:79
+#: invitationsrfbclient.cpp:75
 #, kde-format
 msgid "Received connection from %1, on hold (waiting for confirmation)"
 msgstr "Saadud %1 ühendus, ootel (ootab kinnitust)"
 
-#: invitationsrfbserver.cpp:56
+#: invitationsrfbserver.cpp:55
 #, kde-format
 msgid "%1@%2 (shared desktop)"
 msgstr "%1@%2 (jagatud töölaud)"
@@ -114,31 +114,22 @@ msgstr "Kutsumata ühenduste parool."
 msgid "Preferred Frame Buffer Plugin"
 msgstr "Eelistatud kaadripuhvri plugin"
 
-#: main.cpp:41
+#: main-virtualmonitor.cpp:49
 #, kde-format
-msgid "VNC-compatible server to share desktops"
-msgstr "VNC-ga ühilduv server töölaua jagamiseks"
-
-#: main.cpp:51
-#, kde-format
-msgid ""
-"Your X11 Server does not support the required XTest extension version 2.2. "
-"Sharing your desktop is not possible."
+msgid "Creating a Virtual Monitor from %1"
 msgstr ""
-"Sinu X11 server ei toeta nõutavat XTest laiendi versiooni 2.2. Töölaua "
-"jagamine ei ole võimalik."
 
-#: main.cpp:53 main.cpp:152
+#: main-virtualmonitor.cpp:80
 #, kde-format
-msgid "Desktop Sharing Error"
-msgstr "Töölaua jagamise viga"
+msgid "Remote Virtual Monitor"
+msgstr ""
 
-#: main.cpp:96
+#: main-virtualmonitor.cpp:82
 #, kde-format
-msgid "Desktop Sharing"
-msgstr "Töölaua jagamine"
+msgid "Offer a Virtual Monitor that can be accessed remotely"
+msgstr ""
 
-#: main.cpp:100
+#: main-virtualmonitor.cpp:84 main.cpp:98
 #, kde-format
 msgid ""
 "(c) 2009-2010, Collabora Ltd.\n"
@@ -157,87 +148,168 @@ msgstr ""
 "(c) 2000: Tridia Corporation\n"
 "(c) 1999: AT&T Laboratories Boston\n"
 
-#: main.cpp:107
+#: main-virtualmonitor.cpp:91
 #, kde-format
-msgid "George Goldberg"
-msgstr "George Goldberg"
+msgid "Virtual Monitor implementation"
+msgstr ""
 
-#: main.cpp:108
-#, kde-format
-msgid "Telepathy tubes support"
-msgstr "Telepathy Tube'ide toetus"
-
-#: main.cpp:110
+#: main-virtualmonitor.cpp:92 main.cpp:108
 #, kde-format
 msgid "George Kiagiadakis"
 msgstr "George Kiagiadakis"
 
-#: main.cpp:113
+#: main-virtualmonitor.cpp:93 main.cpp:111
 #, kde-format
 msgid "Alessandro Praduroux"
 msgstr "Alessandro Praduroux"
 
-#: main.cpp:113
+#: main-virtualmonitor.cpp:93 main.cpp:111
 #, kde-format
 msgid "KDE4 porting"
 msgstr "KDE4 portimine"
 
-#: main.cpp:114
+#: main-virtualmonitor.cpp:94 main.cpp:112
 #, kde-format
 msgid "Tim Jansen"
 msgstr "Tim Jansen"
 
-#: main.cpp:114
+#: main-virtualmonitor.cpp:94 main.cpp:112
 #, kde-format
 msgid "Original author"
 msgstr "Algne autor"
 
-#: main.cpp:115
+#: main-virtualmonitor.cpp:95 main.cpp:113
 #, kde-format
 msgid "Johannes E. Schindelin"
 msgstr "Johannes E. Schindelin"
 
-#: main.cpp:116
+#: main-virtualmonitor.cpp:96 main.cpp:114
 #, kde-format
 msgid "libvncserver"
 msgstr "libvncserver"
 
-#: main.cpp:117
+#: main-virtualmonitor.cpp:97 main.cpp:115
 #, kde-format
 msgid "Const Kaplinsky"
 msgstr "Const Kaplinsky"
 
-#: main.cpp:118
+#: main-virtualmonitor.cpp:98 main.cpp:116
 #, kde-format
 msgid "TightVNC encoder"
 msgstr "TightVNC kodeerija"
 
-#: main.cpp:119
+#: main-virtualmonitor.cpp:99 main.cpp:117
 #, kde-format
 msgid "Tridia Corporation"
 msgstr "Tridia Corporation"
 
-#: main.cpp:120
+#: main-virtualmonitor.cpp:100 main.cpp:118
 #, kde-format
 msgid "ZLib encoder"
 msgstr "ZLib kodeerija"
 
-#: main.cpp:121
+#: main-virtualmonitor.cpp:101 main.cpp:119
 #, kde-format
 msgid "AT&T Laboratories Boston"
 msgstr "AT&T Laboratories Boston"
 
-#: main.cpp:122
+#: main-virtualmonitor.cpp:102 main.cpp:120
 #, kde-format
 msgid "original VNC encoders and protocol design"
 msgstr "algsed VNC kodeerijad ja protokolli disain"
 
-#: main.cpp:128
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "Logical resolution of the new monitor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "resolution"
+msgstr ""
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "Name of the monitor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "name"
+msgstr ""
+
+#: main-virtualmonitor.cpp:112
+#, fuzzy, kde-format
+#| msgid "Password for uninvited connections."
+msgid "Password for the client to connect to it"
+msgstr "Kutsumata ühenduste parool."
+
+#: main-virtualmonitor.cpp:112
+#, fuzzy, kde-format
+#| msgid "&Password"
+msgid "password"
+msgstr "&Parool"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "The device-pixel-ratio of the device, the scaling factor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "dpr"
+msgstr ""
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "The port we will be listening to"
+msgstr ""
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "number"
+msgstr ""
+
+#: main.cpp:49
+#, kde-format
+msgid ""
+"Your X11 Server does not support the required XTest extension version 2.2. "
+"Sharing your desktop is not possible."
+msgstr ""
+"Sinu X11 server ei toeta nõutavat XTest laiendi versiooni 2.2. Töölaua "
+"jagamine ei ole võimalik."
+
+#: main.cpp:51 main.cpp:150
+#, kde-format
+msgid "Desktop Sharing Error"
+msgstr "Töölaua jagamise viga"
+
+#: main.cpp:94
+#, kde-format
+msgid "Desktop Sharing"
+msgstr "Töölaua jagamine"
+
+#: main.cpp:96
+#, kde-format
+msgid "VNC-compatible server to share desktops"
+msgstr "VNC-ga ühilduv server töölaua jagamiseks"
+
+#: main.cpp:105
+#, kde-format
+msgid "George Goldberg"
+msgstr "George Goldberg"
+
+#: main.cpp:106
+#, kde-format
+msgid "Telepathy tubes support"
+msgstr "Telepathy Tube'ide toetus"
+
+#: main.cpp:126
 #, kde-format
 msgid "Do not show the invitations management dialog at startup"
 msgstr "Kutsete haldamise dialoogi ei näidata käivitamisel"
 
-#: main.cpp:150
+#: main.cpp:148
 #, kde-format
 msgid ""
 "Desktop Sharing is not running under an X11 Server or Wayland.\n"
@@ -246,17 +318,17 @@ msgstr ""
 "Töölaua jagamine ei tööta X11 serveri ega Waylandi all.\n"
 "Teised kuvaserverid ei ole veel toetatud."
 
-#: mainwindow.cpp:53
+#: mainwindow.cpp:52
 #, kde-format
 msgid "Storing passwords in config file is insecure!"
 msgstr "Parooli salvestamine seadistusfaili ei ole turvaline!"
 
-#: mainwindow.cpp:196
+#: mainwindow.cpp:189
 #, kde-format
 msgid "Enter a new password for Unattended Access"
 msgstr "Sisesta kutseta kasutamiseks uus parool"
 
-#: mainwindow.cpp:207
+#: mainwindow.cpp:200
 #, kde-format
 msgid ""
 "Failed to start the krfb server. Desktop sharing will not work. Try setting "
@@ -265,7 +337,16 @@ msgstr ""
 "Krfb serveri käivitamine nurjus. Töölaua jagamine ei toimi. Proovi määrata "
 "seadistustes mõni muu port ja käivita krfb uuesti."
 
-#: mainwindow.cpp:230
+#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
+#: mainwindow.cpp:223 mainwindow.cpp:230 ui/mainwidget.ui:83
+#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
+#, kde-format
+msgid "KDE Desktop Sharing"
+msgstr "KDE töölaua jagamine"
+
+#: mainwindow.cpp:224
 #, kde-format
 msgid ""
 "This field contains the address of your computer and the port number, "
@@ -292,16 +373,7 @@ msgstr ""
 "Kui arvuti on tulemüüri taga, võib aadress olla hoopis teistsugune või isegi "
 "teistele arvutitele kättesaamatu."
 
-#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
-#: mainwindow.cpp:231 mainwindow.cpp:238 ui/mainwidget.ui:83
-#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
-#, kde-format
-msgid "KDE Desktop Sharing"
-msgstr "KDE töölaua jagamine"
-
-#: mainwindow.cpp:237
+#: mainwindow.cpp:231
 #, kde-format
 msgid ""
 "Any remote user with normal desktop sharing password will have to be "
@@ -317,33 +389,33 @@ msgstr ""
 "Kui kutseta kasutamine on lubatud ning kaugkasutaja annab kutseta režiimi "
 "parooli, antakse ligipääs töölauale ka ilma otsese kinnituseta."
 
-#: mainwindow.cpp:256
+#: mainwindow.cpp:249
 #, kde-format
 msgid "Network"
 msgstr "Võrk"
 
-#: mainwindow.cpp:257
+#: mainwindow.cpp:250
 #, kde-format
 msgid "Security"
 msgstr "Turvalisus"
 
-#: mainwindow.cpp:258
+#: mainwindow.cpp:251
 #, kde-format
 msgid "Screen capture"
 msgstr "Ekraanipilt"
 
-#: mainwindow.cpp:263
+#: mainwindow.cpp:256
 #, kde-format
 msgid "To apply framebuffer plugin setting, you need to restart the program."
 msgstr ""
 "Kaadripuhvri seadistuste rakendamiseks tuleb programm uuesti käivitada."
 
-#: rfbservermanager.cpp:225
+#: rfbservermanager.cpp:229
 #, kde-format
 msgid "The remote user %1 is now connected."
 msgstr "Kaugkasutaja %1 on nüüd ühendatud."
 
-#: rfbservermanager.cpp:239
+#: rfbservermanager.cpp:243
 #, kde-format
 msgid "The remote user %1 disconnected."
 msgstr "Kaugkasutaja %1 ei ole enam ühendatud."

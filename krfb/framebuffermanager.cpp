@@ -27,10 +27,8 @@
 #include <QGlobalStatic>
 
 #include <KPluginFactory>
-#include <KPluginLoader>
 #include <KPluginMetaData>
 
-#include <QSharedPointer>
 
 class FrameBufferManagerStatic
 {
@@ -42,61 +40,29 @@ Q_GLOBAL_STATIC(FrameBufferManagerStatic, frameBufferManagerStatic)
 
 FrameBufferManager::FrameBufferManager()
 {
-    //qDebug();
-
-    loadPlugins();
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("krfb/framebuffer"), {}, KPluginMetaData::AllowEmptyMetaData);
+    for (const KPluginMetaData &data : plugins) {
+        const KPluginFactory::Result<FrameBufferPlugin> result = KPluginFactory::instantiatePlugin<FrameBufferPlugin>(data);
+        if (result.plugin) {
+            m_plugins.insert(data.pluginId(), result.plugin);
+            qCDebug(KRFB) << "Loaded plugin with name " << data.pluginId();
+        } else {
+            qCDebug(KRFB) << "unable to load plugin for " << data.fileName() << result.errorString;
+        }
+    }
 }
 
 FrameBufferManager::~FrameBufferManager()
 {
-    //qDebug();
 }
 
 FrameBufferManager *FrameBufferManager::instance()
 {
-    //qDebug();
-
     return &frameBufferManagerStatic->instance;
 }
 
-void FrameBufferManager::loadPlugins()
+QSharedPointer<FrameBuffer> FrameBufferManager::frameBuffer(WId id, const QVariantMap &args)
 {
-    //qDebug();
-
-    const QVector<KPluginMetaData> plugins = KPluginLoader::findPlugins(QStringLiteral("krfb/framebuffer"));
-
-    QVectorIterator<KPluginMetaData> i(plugins);
-    i.toBack();
-    QSet<QString> unique;
-    while (i.hasPrevious()) {
-        const KPluginMetaData &data = i.previous();
-        // only load plugins once, even if found multiple times!
-        if (unique.contains(data.name()))
-            continue;
-        KPluginFactory *factory = KPluginLoader(data.fileName()).factory();
-
-        if (!factory) {
-            qCDebug(KRFB) << "KPluginFactory could not load the plugin:" << data.fileName();
-            continue;
-        } else {
-            qCDebug(KRFB) << "found plugin at " << data.fileName();
-        }
-
-        auto plugin = factory->create<FrameBufferPlugin>(this);
-        if (plugin) {
-            m_plugins.insert(data.pluginId(), plugin);
-            qCDebug(KRFB) << "Loaded plugin with name " << data.pluginId();
-        } else {
-            qCDebug(KRFB) << "unable to load plugin for " << data.fileName();
-        }
-        unique.insert (data.name());
-    }
-}
-
-QSharedPointer<FrameBuffer> FrameBufferManager::frameBuffer(WId id)
-{
-    //qDebug();
-
     // See if there is still an existing framebuffer to this WId.
     if (m_frameBuffers.contains(id)) {
         QWeakPointer<FrameBuffer> weakFrameBuffer = m_frameBuffers.value(id);
@@ -111,23 +77,17 @@ QSharedPointer<FrameBuffer> FrameBufferManager::frameBuffer(WId id)
     }
 
     // We don't already have that frame buffer.
-    QMap<QString, FrameBufferPlugin *>::const_iterator iter = m_plugins.constBegin();
-
-    while (iter != m_plugins.constEnd()) {
-
-        if (iter.key() == KrfbConfig::preferredFrameBufferPlugin()) {
+    for (auto it = m_plugins.cbegin(); it != m_plugins.constEnd(); it++) {
+        if (it.key() == KrfbConfig::preferredFrameBufferPlugin()) {
             qCDebug(KRFB) << "Using FrameBuffer:" << KrfbConfig::preferredFrameBufferPlugin();
 
-            QSharedPointer<FrameBuffer> frameBuffer(iter.value()->frameBuffer(id));
-
+            QSharedPointer<FrameBuffer> frameBuffer(it.value()->frameBuffer(args));
             if (frameBuffer) {
                 m_frameBuffers.insert(id, frameBuffer.toWeakRef());
 
                 return frameBuffer;
             }
         }
-
-        ++iter;
     }
 
     // No valid framebuffer plugin found.

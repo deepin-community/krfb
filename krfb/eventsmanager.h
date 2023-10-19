@@ -43,7 +43,7 @@ class KRFBPRIVATE_EXPORT EventsManager : public QObject
 public:
     static EventsManager *instance();
 
-    virtual ~EventsManager();
+    ~EventsManager() override;
 
     QSharedPointer<EventHandler> eventHandler();
 
@@ -51,8 +51,6 @@ private:
     Q_DISABLE_COPY(EventsManager)
 
     EventsManager();
-
-    void loadPlugins();
 
     QMap<QString, EventsPlugin *> m_plugins;
     QList<QWeakPointer<EventHandler> > m_eventHandlers;
