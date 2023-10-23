@@ -24,6 +24,7 @@
 #include "krfbconfig.h"
 #include "krfbdebug.h"
 
+#include <QGuiApplication>
 #include <QGlobalStatic>
 
 #include <KPluginFactory>
@@ -40,7 +41,10 @@ Q_GLOBAL_STATIC(FrameBufferManagerStatic, frameBufferManagerStatic)
 
 FrameBufferManager::FrameBufferManager()
 {
-    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("krfb/framebuffer"), {}, KPluginMetaData::AllowEmptyMetaData);
+    const auto platformFilter = [] (const KPluginMetaData &pluginData) {
+        return pluginData.value(QStringLiteral("X-KDE-OnlyShowOnQtPlatforms"), QStringList()).contains(QGuiApplication::platformName());
+    };
+    const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("krfb/framebuffer"), platformFilter, KPluginMetaData::AllowEmptyMetaData);
     for (const KPluginMetaData &data : plugins) {
         const KPluginFactory::Result<FrameBufferPlugin> result = KPluginFactory::instantiatePlugin<FrameBufferPlugin>(data);
         if (result.plugin) {
@@ -76,17 +80,21 @@ QSharedPointer<FrameBuffer> FrameBufferManager::frameBuffer(WId id, const QVaria
         }
     }
 
+    if (auto preferredPlugin = m_plugins.value(KrfbConfig::preferredFrameBufferPlugin())) {
+        if (auto frameBuffer = QSharedPointer<FrameBuffer>(preferredPlugin->frameBuffer(args))) {
+            qCDebug(KRFB) << "Using FrameBuffer:" << KrfbConfig::preferredFrameBufferPlugin();
+            m_frameBuffers.insert(id, frameBuffer.toWeakRef());
+            return frameBuffer;
+        }
+    }
+
     // We don't already have that frame buffer.
     for (auto it = m_plugins.cbegin(); it != m_plugins.constEnd(); it++) {
-        if (it.key() == KrfbConfig::preferredFrameBufferPlugin()) {
-            qCDebug(KRFB) << "Using FrameBuffer:" << KrfbConfig::preferredFrameBufferPlugin();
-
-            QSharedPointer<FrameBuffer> frameBuffer(it.value()->frameBuffer(args));
-            if (frameBuffer) {
-                m_frameBuffers.insert(id, frameBuffer.toWeakRef());
-
-                return frameBuffer;
-            }
+        QSharedPointer<FrameBuffer> frameBuffer(it.value()->frameBuffer(args));
+        if (frameBuffer) {
+            qCDebug(KRFB) << "Using FrameBuffer:" << it.key();
+            m_frameBuffers.insert(id, frameBuffer.toWeakRef());
+            return frameBuffer;
         }
     }
 

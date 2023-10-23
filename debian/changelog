@@ -1,3 +1,10 @@
+krfb (4:23.8.2-deepin) unstable; urgency=medium
+
+  * Maintainer upload
+  * New upstream release
+
+ -- xiangzelong <xiangzelong@deepin.org>  Thu, 19 Oct 2023 16:57:15 +0800
+
 krfb (4:22.12.3-2) unstable; urgency=medium
 
   * Team upload.

@@ -1,8 +1,8 @@
 Source: krfb
 Section: kde
 Priority: optional
-Maintainer: Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
-Uploaders: Aurélien COUDERC <coucouf@debian.org>,
+Maintainer: xiangzelong <xiangzelong@deepin.org>
+Uploaders: xiangzelong <xiangzelong@deepin.org>,
 Build-Depends: cmake (>= 3.16~),
                debhelper-compat (= 13),
                dh-sequence-kf5,
@@ -12,6 +12,7 @@ Build-Depends: cmake (>= 3.16~),
                libepoxy-dev,
                libgbm-dev [linux-any],
                libjpeg-dev,
+               libkpipewire-dev (>= 5.27.0~),
                libkf5config-dev (>= 5.91.0~),
                libkf5coreaddons-dev (>= 5.91.0~),
                libkf5crash-dev (>= 5.91.0~),

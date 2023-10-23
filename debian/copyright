@@ -75,6 +75,7 @@ License: LGPL-2.1+3+KDEeV
 
 Files: debian/*
 Copyright: 2007-2020, Debian Qt/KDE Maintainers <debian-qt-kde@lists.debian.org>
+           2023, xiangzelong <xiangzelong@deepin.org>
 License: GPL-2+
 
 License: BSD-3-clause
