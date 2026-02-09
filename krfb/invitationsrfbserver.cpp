@@ -1,22 +1,11 @@
 /*
-    Copyright (C) 2009-2010 Collabora Ltd <info@collabora.co.uk>
-      @author George Goldberg <george.goldberg@collabora.co.uk>
-      @author George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
-    Copyright (C) 2007 Alessandro Praduroux <pradu@pradu.it>
-    Copyright (C) 2001-2003 by Tim Jansen <tim@tjansen.de>
+    SPDX-FileCopyrightText: 2009-2010 Collabora Ltd <info@collabora.co.uk>
+    SPDX-FileContributor: George Goldberg <george.goldberg@collabora.co.uk>
+    SPDX-FileContributor: George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
+    SPDX-FileCopyrightText: 2007 Alessandro Praduroux <pradu@pradu.it>
+    SPDX-FileCopyrightText: 2001-2003 Tim Jansen <tim@tjansen.de>
 
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-2.0-or-later
 */
 #include "invitationsrfbserver.h"
 #include "invitationsrfbclient.h"
@@ -32,12 +21,7 @@
 #include <KStringHandler>
 #include <KWallet>
 
-#include <kdnssd_version.h>
-#if KDNSSD_VERSION >= QT_VERSION_CHECK(5, 84, 0)
 #include <KDNSSD/PublicService>
-#else
-#include <DNSSD/PublicService>
-#endif
 
 using KWallet::Wallet;
 
@@ -63,7 +47,7 @@ void InvitationsRfbServer::init()
 
     instance->m_wallet = nullptr;
     if (KrfbConfig::noWallet()) {
-        instance->walletOpened(false);
+        instance->readPasswordFromConfig();
     } else {
         instance->openKWallet();
     }
@@ -129,7 +113,7 @@ InvitationsRfbServer::InvitationsRfbServer()
 {
     m_desktopPassword = readableRandomString(4) + QLatin1Char('-') + readableRandomString(3);
     m_unattendedPassword = readableRandomString(4) + QLatin1Char('-') + readableRandomString(3);
-    KConfigGroup krfbConfig(KSharedConfig::openConfig(),"Security");
+    KConfigGroup krfbConfig(KSharedConfig::openConfig(),QStringLiteral("Security"));
     m_allowUnattendedAccess = krfbConfig.readEntry(
             "allowUnattendedAccess", QVariant(false)).toBool();
 }
@@ -186,23 +170,8 @@ void InvitationsRfbServer::walletOpened(bool opened)
         }
 
     } else {
-
         qCDebug(KRFB) << "Could not open KWallet, Falling back to config file";
-        KConfigGroup krfbConfig(KSharedConfig::openConfig(),"Security");
-
-        desktopPassword = KStringHandler::obscure(krfbConfig.readEntry(
-                "desktopPassword", QString()));
-        if(!desktopPassword.isEmpty()) {
-            m_desktopPassword = desktopPassword;
-            Q_EMIT passwordChanged(m_desktopPassword);
-        }
-
-        unattendedPassword = KStringHandler::obscure(krfbConfig.readEntry(
-                "unattendedPassword", QString()));
-        if(!unattendedPassword.isEmpty()) {
-            m_unattendedPassword = unattendedPassword;
-        }
-
+        readPasswordFromConfig();
     }
 }
 
@@ -239,7 +208,7 @@ QString InvitationsRfbServer::readableRandomString(int length)
 // one place to deal with all security configuration
 void InvitationsRfbServer::saveSecuritySettings()
 {
-    KConfigGroup secConfigGroup(KSharedConfig::openConfig(), "Security");
+    KConfigGroup secConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Security"));
     secConfigGroup.writeEntry("allowUnattendedAccess", m_allowUnattendedAccess);
     if (KrfbConfig::noWallet()) {
         // save passwords in config file only if not using kwallet integration
@@ -262,4 +231,24 @@ void InvitationsRfbServer::saveSecuritySettings()
         }
     }
     KrfbConfig::self()->save();
+}
+
+void InvitationsRfbServer::readPasswordFromConfig()
+{
+    QString desktopPassword;
+    QString unattendedPassword;
+    KConfigGroup krfbConfig(KSharedConfig::openConfig(),QStringLiteral("Security"));
+
+    desktopPassword = KStringHandler::obscure(krfbConfig.readEntry(
+            "desktopPassword", QString()));
+    if(!desktopPassword.isEmpty()) {
+        m_desktopPassword = desktopPassword;
+        Q_EMIT passwordChanged(m_desktopPassword);
+    }
+
+    unattendedPassword = KStringHandler::obscure(krfbConfig.readEntry(
+            "unattendedPassword", QString()));
+    if(!unattendedPassword.isEmpty()) {
+        m_unattendedPassword = unattendedPassword;
+    }
 }

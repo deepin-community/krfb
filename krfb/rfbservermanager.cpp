@@ -1,22 +1,11 @@
 /*
-    Copyright (C) 2009-2010 Collabora Ltd <info@collabora.co.uk>
-      @author George Goldberg <george.goldberg@collabora.co.uk>
-      @author George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
-    Copyright (C) 2007 Alessandro Praduroux <pradu@pradu.it>
-    Copyright (C) 2001-2003 by Tim Jansen <tim@tjansen.de>
+    SPDX-FileCopyrightText: 2009-2010 Collabora Ltd <info@collabora.co.uk>
+    SPDX-FileContributor: George Goldberg <george.goldberg@collabora.co.uk>
+    SPDX-FileContributor: George Kiagiadakis <george.kiagiadakis@collabora.co.uk>
+    SPDX-FileCopyrightText: 2007 Alessandro Praduroux <pradu@pradu.it>
+    SPDX-FileCopyrightText: 2001-2003 Tim Jansen <tim@tjansen.de>
 
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU General Public
-    License as published by the Free Software Foundation; either
-    version 2 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    SPDX-License-Identifier: GPL-2.0-or-later
 */
 #include "rfbservermanager.h"
 #include "rfbserver.h"
@@ -26,13 +15,14 @@
 #include "krfbdebug.h"
 #include <QTimer>
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QGlobalStatic>
 #include <QHostInfo>
+#include <qpa/qplatformnativeinterface.h>
 
 #include <KLocalizedString>
 #include <KUser>
 #include <KNotification>
+#include <KWindowSystem>
 #include <chrono>
 
 using namespace std::chrono_literals;
@@ -124,7 +114,14 @@ QVariantMap RfbServerManager::s_pluginArgs;
 void RfbServerManager::init()
 {
     //qDebug();
-    d->fb = FrameBufferManager::instance()->frameBuffer(QApplication::desktop()->winId(), s_pluginArgs);
+    WId rootWindow = 0;
+
+    if (KWindowSystem::isPlatformX11()) {
+        QPlatformNativeInterface* native = qApp->platformNativeInterface();
+        rootWindow = reinterpret_cast<WId>(native->nativeResourceForScreen(QByteArrayLiteral("rootwindow"), QGuiApplication::primaryScreen()));
+    }
+
+    d->fb = FrameBufferManager::instance()->frameBuffer(rootWindow, s_pluginArgs);
     d->myCursor = rfbMakeXCursor(19, 19, (char *) cur, (char *) mask);
     d->myCursor->cleanup = false;
     d->desktopName = QStringLiteral("%1@%2 (shared desktop)") //FIXME check if we can use utf8

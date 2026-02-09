@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: krfb\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2019-08-11 02:53+0200\n"
+"POT-Creation-Date: 2025-03-01 00:46+0000\n"
 "PO-Revision-Date: 2017-08-21 22:34+0200\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -33,32 +33,32 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "caslav.ilic@gmx.net"
 
-#: connectiondialog.cpp:39
+#: connectiondialog.cpp:26
 #, kde-format
 msgid "New Connection"
 msgstr "Nova veza"
 
-#: connectiondialog.cpp:61
+#: connectiondialog.cpp:48
 #, kde-format
 msgid "Accept Connection"
 msgstr "Prihvati vezu"
 
-#: connectiondialog.cpp:65
+#: connectiondialog.cpp:52
 #, kde-format
 msgid "Refuse Connection"
 msgstr "Odbij vezu"
 
-#: invitationsrfbclient.cpp:73
+#: invitationsrfbclient.cpp:58
 #, kde-format
 msgid "Accepted connection from %1"
 msgstr "Prihvaćena veza sa %1"
 
-#: invitationsrfbclient.cpp:79
+#: invitationsrfbclient.cpp:64
 #, kde-format
 msgid "Received connection from %1, on hold (waiting for confirmation)"
 msgstr "Primljena veza sa %1, na čekanju (čeka potvrdu)"
 
-#: invitationsrfbserver.cpp:47
+#: invitationsrfbserver.cpp:39
 #, kde-format
 msgid "%1@%2 (shared desktop)"
 msgstr "%1@%2 (deljena površ)"
@@ -119,32 +119,23 @@ msgstr "Lozinka za nepozvane veze."
 msgid "Preferred Frame Buffer Plugin"
 msgstr "Priključak željenog kadrobafera"
 
-#: main.cpp:41
+#: main-virtualmonitor.cpp:47
 #, kde-format
-msgid "VNC-compatible server to share desktops"
-msgstr "VNC‑u saglasan server za deljenje površi"
-
-#: main.cpp:51
-#, kde-format
-msgid ""
-"Your X11 Server does not support the required XTest extension version 2.2. "
-"Sharing your desktop is not possible."
+msgid "Creating a Virtual Monitor from %1"
 msgstr ""
-"Vaš X server ne podržava neophodno proširenje XTest, verzije 2.2. Nije "
-"moguće deliti površ."
 
-#: main.cpp:53 main.cpp:152
+#: main-virtualmonitor.cpp:78
 #, kde-format
-msgid "Desktop Sharing Error"
-msgstr "Greška u deljenju površi"
+msgid "Remote Virtual Monitor"
+msgstr ""
 
-#: main.cpp:96
+#: main-virtualmonitor.cpp:80
 #, kde-format
-msgid "Desktop Sharing"
-msgstr "Deljenje površi"
+msgid "Offer a Virtual Monitor that can be accessed remotely"
+msgstr ""
 
 # well-spelled: Бостон
-#: main.cpp:100
+#: main-virtualmonitor.cpp:82 main.cpp:87
 #, kde-format
 msgid ""
 "(c) 2009-2010, Collabora Ltd.\n"
@@ -163,106 +154,187 @@ msgstr ""
 "© 2000, kompanija Tridia\n"
 "© 1999, laboratorije AT&T‑a Boston\n"
 
-#: main.cpp:107
+#: main-virtualmonitor.cpp:89
 #, kde-format
-msgid "George Goldberg"
-msgstr "Džordž Goldberg"
+msgid "Virtual Monitor implementation"
+msgstr ""
 
-#: main.cpp:108
-#, kde-format
-msgid "Telepathy tubes support"
-msgstr "Podrška za Telepathyjeve cevi"
-
-#: main.cpp:110
+#: main-virtualmonitor.cpp:90 main.cpp:97
 #, kde-format
 msgid "George Kiagiadakis"
 msgstr "Georgios Kjajadakis"
 
-#: main.cpp:113
+#: main-virtualmonitor.cpp:91 main.cpp:100
 #, kde-format
 msgid "Alessandro Praduroux"
 msgstr "Alesandro Praduru"
 
-#: main.cpp:113
+#: main-virtualmonitor.cpp:91 main.cpp:100
 #, kde-format
 msgid "KDE4 porting"
 msgstr "Prebacivanje na KDE4"
 
-#: main.cpp:114
+#: main-virtualmonitor.cpp:92 main.cpp:101
 #, kde-format
 msgid "Tim Jansen"
 msgstr "Tim Jansen"
 
-#: main.cpp:114
+#: main-virtualmonitor.cpp:92 main.cpp:101
 #, kde-format
 msgid "Original author"
 msgstr "Prvobitni autor"
 
-#: main.cpp:115
+#: main-virtualmonitor.cpp:93 main.cpp:102
 #, kde-format
 msgid "Johannes E. Schindelin"
 msgstr "Johanes Šindelin"
 
-#: main.cpp:116
+#: main-virtualmonitor.cpp:94 main.cpp:103
 #, kde-format
 msgid "libvncserver"
 msgstr "libvncserver"
 
-#: main.cpp:117
+#: main-virtualmonitor.cpp:95 main.cpp:104
 #, kde-format
 msgid "Const Kaplinsky"
 msgstr "Konstantin Kaplinski"
 
-#: main.cpp:118
+#: main-virtualmonitor.cpp:96 main.cpp:105
 #, kde-format
 msgid "TightVNC encoder"
 msgstr "Koder TightVNC"
 
-#: main.cpp:119
+#: main-virtualmonitor.cpp:97 main.cpp:106
 #, kde-format
 msgid "Tridia Corporation"
 msgstr "Tridia"
 
-#: main.cpp:120
+#: main-virtualmonitor.cpp:98 main.cpp:107
 #, kde-format
 msgid "ZLib encoder"
 msgstr "Koder ZLib"
 
 # well-spelled: Бостон
-#: main.cpp:121
+#: main-virtualmonitor.cpp:99 main.cpp:108
 #, kde-format
 msgid "AT&T Laboratories Boston"
 msgstr "AT&T Boston"
 
-#: main.cpp:122
+#: main-virtualmonitor.cpp:100 main.cpp:109
 #, kde-format
 msgid "original VNC encoders and protocol design"
 msgstr "prvobitni projekat VNC koderâ i protokola"
 
-#: main.cpp:128
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "Logical resolution of the new monitor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:108
+#, kde-format
+msgid "resolution"
+msgstr ""
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "Name of the monitor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:110
+#, kde-format
+msgid "name"
+msgstr ""
+
+#: main-virtualmonitor.cpp:112
+#, fuzzy, kde-format
+#| msgid "Password for uninvited connections."
+msgid "Password for the client to connect to it"
+msgstr "Lozinka za nepozvane veze."
+
+#: main-virtualmonitor.cpp:112
+#, fuzzy, kde-format
+#| msgid "&Password"
+msgid "password"
+msgstr "&Lozinka"
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "The device-pixel-ratio of the device, the scaling factor"
+msgstr ""
+
+#: main-virtualmonitor.cpp:114
+#, kde-format
+msgid "dpr"
+msgstr ""
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "The port we will be listening to"
+msgstr ""
+
+#: main-virtualmonitor.cpp:116
+#, kde-format
+msgid "number"
+msgstr ""
+
+#: main.cpp:38
+#, kde-format
+msgid ""
+"Your X11 Server does not support the required XTest extension version 2.2. "
+"Sharing your desktop is not possible."
+msgstr ""
+"Vaš X server ne podržava neophodno proširenje XTest, verzije 2.2. Nije "
+"moguće deliti površ."
+
+#: main.cpp:40 main.cpp:143
+#, kde-format
+msgid "Desktop Sharing Error"
+msgstr "Greška u deljenju površi"
+
+#: main.cpp:83
+#, kde-format
+msgid "Desktop Sharing"
+msgstr "Deljenje površi"
+
+#: main.cpp:85
+#, kde-format
+msgid "VNC-compatible server to share desktops"
+msgstr "VNC‑u saglasan server za deljenje površi"
+
+#: main.cpp:94
+#, kde-format
+msgid "George Goldberg"
+msgstr "Džordž Goldberg"
+
+#: main.cpp:95
+#, kde-format
+msgid "Telepathy tubes support"
+msgstr "Podrška za Telepathyjeve cevi"
+
+#: main.cpp:119
 #, kde-format
 msgid "Do not show the invitations management dialog at startup"
 msgstr "Bez dijaloga za upravljanje pozivnicama pri pokretanju"
 
-#: main.cpp:150
+#: main.cpp:141
 #, kde-format
 msgid ""
 "Desktop Sharing is not running under an X11 Server or Wayland.\n"
 "Other display servers are currently not supported."
 msgstr ""
 
-#: mainwindow.cpp:54
+#: mainwindow.cpp:49
 #, kde-format
 msgid "Storing passwords in config file is insecure!"
 msgstr ""
 
 # >> @title:window
-#: mainwindow.cpp:200
+#: mainwindow.cpp:186
 #, kde-format
 msgid "Enter a new password for Unattended Access"
 msgstr "Nova lozinka za nenadzirani pristup"
 
-#: mainwindow.cpp:211
+#: mainwindow.cpp:197
 #, kde-format
 msgid ""
 "Failed to start the krfb server. Desktop sharing will not work. Try setting "
@@ -271,7 +343,16 @@ msgstr ""
 "Server KRFB‑a ne može da se pokrene. Deljenje površi neće raditi. Pokušajte "
 "da promenite port u postavkama i ponovo pokrenete KRFB."
 
-#: mainwindow.cpp:234
+#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
+#. i18n: ectx: property (text), widget (QLabel, titleLabel)
+#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
+#: mainwindow.cpp:220 mainwindow.cpp:227 ui/mainwidget.ui:83
+#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
+#, kde-format
+msgid "KDE Desktop Sharing"
+msgstr "KDE deljenje površi"
+
+#: mainwindow.cpp:221
 #, kde-format
 msgid ""
 "This field contains the address of your computer and the port number, "
@@ -293,16 +374,7 @@ msgstr ""
 "je računar iza zaštitnog zida, može imati drugačiju adresu ili biti "
 "nedostupan drugim računarima.</p>"
 
-#. i18n: ectx: property (whatsThis), widget (QLabel, titleLabel)
-#. i18n: ectx: property (text), widget (QLabel, titleLabel)
-#. i18n: ectx: property (whatsThis), widget (QLabel, aboutLabel)
-#: mainwindow.cpp:235 mainwindow.cpp:242 ui/mainwidget.ui:83
-#: ui/mainwidget.ui:86 ui/mainwidget.ui:114
-#, kde-format
-msgid "KDE Desktop Sharing"
-msgstr "KDE deljenje površi"
-
-#: mainwindow.cpp:241
+#: mainwindow.cpp:228
 #, kde-format
 msgid ""
 "Any remote user with normal desktop sharing password will have to be "
@@ -319,22 +391,22 @@ msgstr ""
 "nenadzirani režim, pristup za deljenje površi biće dopušten bez izričite "
 "potvrde."
 
-#: mainwindow.cpp:260
+#: mainwindow.cpp:246
 #, kde-format
 msgid "Network"
 msgstr "Mreža"
 
-#: mainwindow.cpp:261
+#: mainwindow.cpp:247
 #, kde-format
 msgid "Security"
 msgstr "Bezbednost"
 
-#: mainwindow.cpp:262
+#: mainwindow.cpp:248
 #, kde-format
 msgid "Screen capture"
 msgstr "Snimanje ekrana"
 
-#: mainwindow.cpp:267
+#: mainwindow.cpp:253
 #, kde-format
 msgid "To apply framebuffer plugin setting, you need to restart the program."
 msgstr ""
@@ -351,45 +423,39 @@ msgstr "Udaljeni korisnik %1 je sada povezan."
 msgid "The remote user %1 disconnected."
 msgstr "Udaljeni korisnik %1 prekinuo je vezu."
 
-#: trayicon.cpp:56
+#: trayicon.cpp:45
 #, kde-format
 msgid "Disconnect"
 msgstr "Prekini vezu"
 
-#: trayicon.cpp:62
+#: trayicon.cpp:51
 #, kde-format
 msgid "Enable Remote Control"
 msgstr "Uključi daljinsku kontrolu"
 
-#: trayicon.cpp:101 trayicon.cpp:133
+#: trayicon.cpp:90 trayicon.cpp:122
 #, kde-format
 msgid "Desktop Sharing - disconnected"
 msgstr "Deljenje površi — veza je prekinuta"
 
-#: trayicon.cpp:117 trayicon.cpp:137
+#: trayicon.cpp:106 trayicon.cpp:126
 #, kde-format
 msgid "Desktop Sharing - connected with %1"
 msgstr "Deljenje površi — povezana sa %1"
 
-#: trayicon.cpp:120
+#: trayicon.cpp:109
 #, kde-format
 msgid "Desktop Sharing - connected"
 msgstr "Deljenje površi — povezano"
 
-#. i18n: ectx: property (windowTitle), widget (QWidget, Framebuffer)
-#: ui/configframebuffer.ui:14
-#, kde-format
-msgid "Framebuffer"
-msgstr "Kadrobafer"
-
 #. i18n: ectx: property (text), widget (QLabel, label)
-#: ui/configframebuffer.ui:22
+#: ui/configframebuffer.ui:19
 #, kde-format
 msgid "Preferred frameb&uffer plugin:"
 msgstr "Željeni priključak &kadrobafera:"
 
 #. i18n: ectx: property (text), widget (QLabel, helpText)
-#: ui/configframebuffer.ui:47
+#: ui/configframebuffer.ui:44
 #, kde-format
 msgid ""
 "<html><head/><body><p>When using x11, <span style=\" font-weight:600;\">xcb</"
@@ -635,3 +701,6 @@ msgstr "Izmenite lozinku za nenadzirani pristup."
 #, kde-format
 msgid "&Change Unattended Password"
 msgstr "&Izmeni lozinku nenadziranog pristupa"
+
+#~ msgid "Framebuffer"
+#~ msgstr "Kadrobafer"

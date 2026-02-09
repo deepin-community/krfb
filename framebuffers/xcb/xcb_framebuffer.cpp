@@ -1,10 +1,7 @@
 /* This file is part of the KDE project
-   Copyright (C) 2017 Alexey Min <alexey.min@gmail.com>
+   SPDX-FileCopyrightText: 2017 Alexey Min <alexey.min@gmail.com>
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   SPDX-License-Identifier: GPL-2.0-or-later
 */
 
 #include "xcb_framebuffer.h"
@@ -18,13 +15,12 @@
 #include <sys/ipc.h>
 #include <sys/shm.h>
 
-#include <QX11Info>
 #include <QApplication>
-#include <QDesktopWidget>
 #include <QGuiApplication>
 #include <QScreen>
 #include <QAbstractNativeEventFilter>
-
+#include <qpa/qplatformnativeinterface.h>
+#include <QtGui/private/qtx11extras_p.h>
 
 class KrfbXCBEventFilter: public QAbstractNativeEventFilter
 {
@@ -32,7 +28,7 @@ public:
     KrfbXCBEventFilter(XCBFrameBuffer *owner);
 
 public:
-    bool nativeEventFilter(const QByteArray &eventType, void *message, long *result) override;
+    bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) override;
 
 public:
     int xdamageBaseEvent;
@@ -99,7 +95,7 @@ KrfbXCBEventFilter::KrfbXCBEventFilter(XCBFrameBuffer *owner):
 
 
 bool KrfbXCBEventFilter::nativeEventFilter(const QByteArray &eventType,
-                                           void *message, long *result) {
+                                           void *message, qintptr *result) {
     Q_UNUSED(result);  // "result" is only used on windows
 
     if (xdamageBaseEvent == 0) return false;  // no xdamage extension
@@ -159,12 +155,13 @@ XCBFrameBuffer::XCBFrameBuffer(QObject *parent):
     d->area.setRect(0, 0, 0, 0);
     d->x11EvtFilter = new KrfbXCBEventFilter(this);
     d->rootScreen = get_xcb_screen(QX11Info::connection(), QX11Info::appScreen());
-    d->win = QApplication::desktop()->winId();
 
     this->fb = nullptr;
 
     QScreen *primaryScreen = QGuiApplication::primaryScreen();
     if (primaryScreen) {
+        QPlatformNativeInterface* native = qApp->platformNativeInterface();
+        d->win = reinterpret_cast<WId>(native->nativeResourceForScreen(QByteArrayLiteral("rootwindow"), primaryScreen));
         qreal scaleFactor = primaryScreen->devicePixelRatio();
         d->area = { primaryScreen->geometry().topLeft() * scaleFactor,
                     primaryScreen->geometry().bottomRight() * scaleFactor };

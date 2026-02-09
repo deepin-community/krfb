@@ -1,16 +1,15 @@
 /* This file is part of the KDE project
-   Copyright (C) 2007 Alessandro Praduroux <pradu@pradu.it>
+   SPDX-FileCopyrightText: 2007 Alessandro Praduroux <pradu@pradu.it>
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   SPDX-License-Identifier: GPL-2.0-or-later
 */
 
 #include "framebuffer.h"
 
 #include <config-krfb.h>
 #include <QCursor>
+#include <QGuiApplication>
+#include <QScreen>
 
 
 FrameBuffer::FrameBuffer(QObject *parent)
@@ -75,5 +74,14 @@ void FrameBuffer::stopMonitor()
 
 QPoint FrameBuffer::cursorPosition()
 {
-    return QCursor::pos();
+    QPoint cursorPos = QCursor::pos();
+    QScreen *primaryScreen = QGuiApplication::primaryScreen();
+    if (primaryScreen) {
+        qreal scaleFactor = primaryScreen->devicePixelRatio();
+        cursorPos.setX(qRound(cursorPos.x() * scaleFactor));
+        cursorPos.setY(qRound(cursorPos.y() * scaleFactor));
+    } else {
+        qWarning() << "cursorPosition: ERROR: Failed to get application's primary screen info!";
+    }
+    return cursorPos;
 }

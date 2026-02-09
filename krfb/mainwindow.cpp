@@ -1,11 +1,8 @@
 /* This file is part of the KDE project
-   Copyright (C) 2007 Alessandro Praduroux <pradu@pradu.it>
-   Copyright (C) 2013 Amandeep Singh <aman.dedman@gmail.com>
+   SPDX-FileCopyrightText: 2007 Alessandro Praduroux <pradu@pradu.it>
+   SPDX-FileCopyrightText: 2013 Amandeep Singh <aman.dedman@gmail.com>
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
+   SPDX-License-Identifier: GPL-2.0-or-later
 */
 #include "mainwindow.h"
 #include "invitationsrfbserver.h"
@@ -29,7 +26,7 @@
 #include <QLineEdit>
 #include <QComboBox>
 #include <QSizePolicy>
-#include <QVector>
+#include <QList>
 #include <QSet>
 #include <QNetworkInterface>
 #include <QHostInfo>
@@ -82,7 +79,7 @@ public:
     }
 
     void fillFrameBuffersCombo() {
-        const QVector<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("krfb/framebuffer"), {}, KPluginMetaData::AllowEmptyMetaData);
+        const QList<KPluginMetaData> plugins = KPluginMetaData::findPlugins(QStringLiteral("krfb/framebuffer"), {}, KPluginMetaData::AllowEmptyMetaData);
         for (const KPluginMetaData &metadata : plugins) {
             cb_preferredFrameBufferPlugin->addItem(metadata.pluginId());
         }
@@ -145,8 +142,8 @@ MainWindow::MainWindow(QWidget *parent)
     m_ui.passwordDisplayLabel->setText(
             InvitationsRfbServer::instance->desktopPassword());
 
-    KStandardAction::quit(QCoreApplication::instance(), SLOT(quit()), actionCollection());
-    KStandardAction::preferences(this, SLOT(showConfiguration()), actionCollection());
+    KStandardAction::quit(QCoreApplication::instance(), &QCoreApplication::quit, actionCollection());
+    KStandardAction::preferences(this, &MainWindow::showConfiguration, actionCollection());
 
     setupGUI();
 
@@ -264,7 +261,7 @@ void MainWindow::showConfiguration()
             } else {
                 InvitationsRfbServer::instance->openKWallet();
                 // erase stored passwords from krfbconfig file
-                KConfigGroup securityConfigGroup(KSharedConfig::openConfig(), "Security");
+                KConfigGroup securityConfigGroup(KSharedConfig::openConfig(), QStringLiteral("Security"));
                 securityConfigGroup.deleteEntry("desktopPassword");
                 securityConfigGroup.deleteEntry("unattendedPassword");
             }

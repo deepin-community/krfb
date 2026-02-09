@@ -1,10 +1,7 @@
 /* This file is part of the KDE project
-   Copyright (C) 2021 Aleix Pol Gonzalez <aleixpol@kde.org>
+   SPDX-FileCopyrightText: 2021 Aleix Pol Gonzalez <aleixpol@kde.org>
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 3 of the License, or (at your option) any later version.
+   SPDX-License-Identifier: GPL-3.0-or-later
 */
 
 #include <QApplication>
@@ -12,6 +9,7 @@
 #include <QCommandLineOption>
 #include <QDebug>
 #include <QTimer>
+#include <KCrash>
 #include <KNotification>
 #include <KLocalizedString>
 #include <KWindowSystem>
@@ -102,6 +100,8 @@ int main(int argc, char *argv[])
                         i18n("original VNC encoders and "
                               "protocol design"));
     KAboutData::setApplicationData(aboutData);
+
+    KCrash::initialize();
 
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);
