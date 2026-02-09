@@ -1,19 +1,7 @@
-/***************************************************************************
-                                   main.cpp
-                             -------------------
-    begin                : Sat Dec  8 03:23:02 CET 2001
-    copyright            : (C) 2001-2003 by Tim Jansen
-    email                : tim@tjansen.de
- ***************************************************************************/
-
-/***************************************************************************
- *                                                                         *
- *   This program is free software; you can redistribute it and/or modify  *
- *   it under the terms of the GNU General Public License as published by  *
- *   the Free Software Foundation; either version 2 of the License, or     *
- *   (at your option) any later version.                                   *
- *                                                                         *
- ***************************************************************************/
+/*
+    SPDX-FileCopyrightText: 2001-2003 Tim Jansen <tim@tjansen.de>
+    SPDX-License-Identifier: GPL-2.0-or-later
+*/
 
 #include "mainwindow.h"
 #include "trayicon.h"
@@ -23,6 +11,7 @@
 #include "krfbdebug.h"
 
 #include <KAboutData>
+#include <KCrash>
 #include <KDBusService>
 #include <KLocalizedString>
 #include <KMessageBox>
@@ -30,7 +19,7 @@
 
 #include <QPixmap>
 #include <qwindowdefs.h>
-#include <QX11Info>
+#include <QtGui/private/qtx11extras_p.h>
 
 #include <csignal>
 #include <X11/extensions/XTest.h>
@@ -120,6 +109,10 @@ int main(int argc, char *argv[])
                         i18n("original VNC encoders and "
                               "protocol design"));
     KAboutData::setApplicationData(aboutData);
+
+    QApplication::setWindowIcon(QIcon::fromTheme(QStringLiteral("krfb")));
+
+    KCrash::initialize();
 
     QCommandLineParser parser;
     aboutData.setupCommandLine(&parser);

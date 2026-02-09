@@ -1,17 +1,17 @@
 cmake_minimum_required(VERSION 3.16)
 
 # KDE Application Version, managed by release script
-set (RELEASE_SERVICE_VERSION_MAJOR "23")
-set (RELEASE_SERVICE_VERSION_MINOR "08")
+set (RELEASE_SERVICE_VERSION_MAJOR "25")
+set (RELEASE_SERVICE_VERSION_MINOR "04")
 set (RELEASE_SERVICE_VERSION_MICRO "2")
 set (RELEASE_SERVICE_VERSION "${RELEASE_SERVICE_VERSION_MAJOR}.${RELEASE_SERVICE_VERSION_MINOR}.${RELEASE_SERVICE_VERSION_MICRO}")
 
 project(krfb VERSION ${RELEASE_SERVICE_VERSION})
 
-set(QT_MIN_VERSION 5.15.2)
-set(KF5_MIN_VERSION 5.91.0)
+set(QT_MIN_VERSION 6.5.0)
+set(KF6_MIN_VERSION 6.2.0)
 
-find_package(ECM ${KF5_MIN_VERSION} NO_MODULE REQUIRED)
+find_package(ECM ${KF6_MIN_VERSION} NO_MODULE REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/modules" ${ECM_MODULE_PATH})
 
 include(KDEInstallDirs)
@@ -27,13 +27,14 @@ include(CheckIncludeFile)
 
 check_include_file("linux/input.h" HAVE_LINUX_INPUT_H)
 
-find_package(Qt5 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core DBus Widgets X11Extras)
-
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
+find_package(Qt6 ${QT_MIN_VERSION} REQUIRED COMPONENTS Core DBus Widgets)
+if (Qt6Gui_VERSION VERSION_GREATER_EQUAL "6.10.0")
+    find_package(Qt6GuiPrivate ${REQUIRED_QT_VERSION} REQUIRED NO_MODULE)
+endif()
+find_package(KF6 ${KF6_MIN_VERSION} REQUIRED COMPONENTS
     I18n
     Config
     CoreAddons
-    Crash
     DBusAddons
     DNSSD
     DocTools
@@ -42,6 +43,8 @@ find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     WidgetsAddons
     WindowSystem
     XmlGui
+    StatusNotifierItem
+    Crash
 )
 
 find_package(X11 REQUIRED)
@@ -62,8 +65,8 @@ if(WIN32)
 endif(WIN32)
 
 ecm_set_disabled_deprecation_versions(
-    QT 5.15.2
-    KF 5.91
+    QT 6.7.0
+    KF 6.5.0
 )
 
 include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_BINARY_DIR} )
@@ -73,16 +76,17 @@ find_package(LibVNCServer REQUIRED)
 
 option(DISABLE_PIPEWIRE "Disable PipeWire support." OFF)
 if(NOT DISABLE_PIPEWIRE)
-    find_package(KPipeWire REQUIRED)
+    find_package(KPipeWire CONFIG REQUIRED)
+    pkg_check_modules(PipeWire IMPORTED_TARGET libpipewire-0.3)
+    add_feature_info(PipeWire PipeWire_FOUND "Required for pipewire screencast plugin")
 endif()
-add_feature_info(PipeWire KPipeWire_FOUND "Required for pipewire screencast plugin")
+
 find_package(PlasmaWaylandProtocols 1.5.0)
 
-if(KPipeWire_FOUND AND PlasmaWaylandProtocols_FOUND)
-    find_package(KF5Wayland ${KF5_MIN_VERSION})
+if(KPipeWire_FOUND AND PipeWire_FOUND AND PlasmaWaylandProtocols_FOUND)
+    find_package(KWayland REQUIRED)
     find_package(QtWaylandScanner REQUIRED)
-    find_package(Qt5WaylandClient)
-    find_package(Qt5XkbCommonSupport)
+    find_package(Qt6WaylandClient)
     find_package(Wayland REQUIRED COMPONENTS Client)
 endif()
 

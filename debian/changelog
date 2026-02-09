@@ -1,9 +1,47 @@
-krfb (4:23.8.2-deepin) unstable; urgency=medium
+krfb (4:25.04.2-1) unstable; urgency=medium
 
-  * Maintainer upload
-  * New upstream release
+  [ Aurélien COUDERC ]
+  * New upstream release (25.04.1).
+    - Fix incorrect cursor position under display scaling. (kde#466276)
+  * New upstream release (25.04.2).
+    - Translation fixes.
 
- -- xiangzelong <xiangzelong@deepin.org>  Thu, 19 Oct 2023 16:57:15 +0800
+ -- Aurélien COUDERC <coucouf@debian.org>  Mon, 09 Jun 2025 22:43:44 +0200
+
+krfb (4:25.04.0-1) unstable; urgency=medium
+
+  [ Aurélien COUDERC ]
+  * New upstream release (25.04.0).
+  * Bump Standards-Version to 4.7.2, no change required.
+  * Update project homepage.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Thu, 17 Apr 2025 21:45:44 +0200
+
+krfb (4:24.12.0-1) unstable; urgency=medium
+
+  [ Aurélien COUDERC ]
+  * New upstream release (24.12.0).
+  * Update build-deps and deps with the info from cmake.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Wed, 25 Dec 2024 21:21:11 +0100
+
+krfb (4:24.08.2-2) unstable; urgency=medium
+
+  [ Aurélien COUDERC ]
+  * Switch to kf6 debhelper build sequence, remove unneeded debian/rules
+    arguments.
+  * Release to unstable.
+
+ -- Aurélien COUDERC <coucouf@debian.org>  Wed, 27 Nov 2024 00:23:26 +0100
+
+krfb (4:24.08.2-1) experimental; urgency=medium
+
+  * Team upload.
+  * New upstream release.
+  * Update build dependencies and rules for KF6.
+  * Update Standards-Version to 4.7.0, no changes needed.
+
+ -- Simon Quigley <tsimonq2@debian.org>  Sat, 02 Nov 2024 02:03:59 -0500
 
 krfb (4:22.12.3-2) unstable; urgency=medium
 

@@ -1,11 +1,8 @@
 /* This file is part of the KDE project
-   Copyright (C) 2018-2021 Jan Grulich <jgrulich@redhat.com>
-   Copyright (C) 2018 Oleg Chernovskiy <kanedias@xaker.ru>
+   SPDX-FileCopyrightText: 2018-2021 Jan Grulich <jgrulich@redhat.com>
+   SPDX-FileCopyrightText: 2018 Oleg Chernovskiy <kanedias@xaker.ru>
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 3 of the License, or (at your option) any later version.
+   SPDX-License-Identifier: GPL-3.0-or-later
 */
 
 #include "config-krfb.h"
@@ -22,6 +19,9 @@
 #include <QDebug>
 #include <QRandomGenerator>
 
+#include <KConfigGroup>
+#include <KSharedConfig>
+
 #include <KWayland/Client/connection_thread.h>
 #include <KWayland/Client/registry.h>
 
@@ -33,8 +33,8 @@
 #include "xdp_dbus_remotedesktop_interface.h"
 #include "krfb_fb_pipewire_debug.h"
 #include "screencasting.h"
-#include <KPipeWire/PipeWireSourceStream>
-#include <KPipeWire/DmaBufHandler>
+#include <PipeWireSourceStream>
+#include <DmaBufHandler>
 
 static const int BYTES_PER_PIXEL = 4;
 static const uint MIN_SUPPORTED_XDP_KDE_SC_VERSION = 1;
@@ -185,8 +185,16 @@ void PWFrameBuffer::Private::handleSessionCreated(quint32 code, const QVariantMa
     auto selectionOptions = QVariantMap {
         // We have to specify it's an uint, otherwise xdg-desktop-portal will not forward it to backend implementation
         { QStringLiteral("types"), QVariant::fromValue<uint>(7) }, // request all (KeyBoard, Pointer, TouchScreen)
-        { QStringLiteral("handle_token"), QStringLiteral("krfb%1").arg(QRandomGenerator::global()->generate()) }
+        { QStringLiteral("handle_token"), QStringLiteral("krfb%1").arg(QRandomGenerator::global()->generate()) },
+        { QStringLiteral("persist_mode"), QVariant::fromValue<uint>(2) }, // Persist permission until explicitly revoked by user
     };
+
+    KConfigGroup stateConfig = KSharedConfig::openStateConfig()->group(QStringLiteral("XdgPortal"));
+    const QString restoreToken = stateConfig.readEntry(QStringLiteral("RestoreToken"), QString());
+    if (!restoreToken.isEmpty()) {
+        selectionOptions[QStringLiteral("restore_token")] = restoreToken;
+    }
+
     auto selectorReply = dbusXdpRemoteDesktopService->SelectDevices(sessionPath, selectionOptions);
     selectorReply.waitForFinished();
     if (!selectorReply.isValid()) {
@@ -334,31 +342,48 @@ void PWFrameBuffer::Private::handleRemoteDesktopStarted(quint32 code, const QVar
         isValid = false;
         return;
     }
-    setVideoSize(qdbus_cast<QSize>(streams.first().map[QStringLiteral("size")].value<QDBusArgument>()));
+
+    // save restore token
+    KConfigGroup stateConfig = KSharedConfig::openStateConfig()->group(QStringLiteral("XdgPortal"));
+    stateConfig.writeEntry(QStringLiteral("RestoreToken"), results[QStringLiteral("restore_token")].toString());
 }
 
 void PWFrameBuffer::Private::handleFrame(const PipeWireFrame &frame)
 {
     cursor = frame.cursor;
 
+#if KPIPEWIRE60
     if (!frame.dmabuf && !frame.image) {
+#else
+    if (!frame.dmabuf && !frame.dataFrame) {
+#endif
         qCDebug(KRFB_FB_PIPEWIRE) << "Got empty buffer. The buffer possibly carried only "
                                      "information about the mouse cursor.";
         return;
     }
 
+#if KPIPEWIRE60
     if (frame.image) {
         memcpy(q->fb, frame.image->constBits(), frame.image->sizeInBytes());
         setVideoSize(frame.image->size());
     }
+#else
+    if (frame.dataFrame) {
+        // FIXME: Assuming stride == width * 4, not sure to which extent this holds
+        setVideoSize(frame.dataFrame->size);
+        memcpy(q->fb, frame.dataFrame->data, frame.dataFrame->size.height() * frame.dataFrame->stride);
+    }
+#endif
     else if (frame.dmabuf) {
-        QImage src((uchar*) q->fb, videoSize.width(), videoSize.height(), QImage::Format_RGB32);
+        // FIXME: Assuming stride == width * 4, not sure to which extent this holds
+        const QSize size = { frame.dmabuf->width, frame.dmabuf->height };
+        setVideoSize(size);
+        QImage src(reinterpret_cast<uchar*>(q->fb), size.width(), size.height(), QImage::Format_RGB32);
         if (!m_dmabufHandler.downloadFrame(src, frame)) {
             stream->renegotiateModifierFailed(frame.format, frame.dmabuf->modifier);
             qCDebug(KRFB_FB_PIPEWIRE) << "Failed to download frame.";
             return;
         }
-        setVideoSize(src.size());
     } else {
         qCDebug(KRFB_FB_PIPEWIRE) << "Unknown kind of frame";
     }
@@ -499,5 +524,10 @@ bool PWFrameBuffer::isValid() const
 
 QPoint PWFrameBuffer::cursorPosition()
 {
-    return d->cursor->position;
+    const auto cursor = d->cursor;
+    if (cursor) {
+        return cursor->position;
+    } else {
+        return {};
+    }
 }

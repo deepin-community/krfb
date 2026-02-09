@@ -1,36 +1,20 @@
 /*
    This file is part of the KDE project
 
-   Copyright (C) 2016 by Oleg Chernovskiy <kanedias@xaker.ru>
+   SPDX-FileCopyrightText: 2016 Oleg Chernovskiy <kanedias@xaker.ru>
 
-   This program is free software; you can redistribute it and/or
-   modify it under the terms of the GNU General Public
-   License as published by the Free Software Foundation; either
-   version 2 of the License, or (at your option) any later version.
-
-   This program is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   General Public License for more details.
-
-   You should have received a copy of the GNU General Public License
-   along with this program; see the file COPYING.  If not, write to
-   the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-   Boston, MA 02110-1301, USA.
+   SPDX-License-Identifier: GPL-2.0-or-later
 */
 
 #include "x11events.h"
 
 #include <QApplication>
-#include <QX11Info>
-#include <QDesktopWidget>
 #include <QGlobalStatic>
+#include <QtGui/private/qtx11extras_p.h>
 
 #include <X11/Xutil.h>
 #include <X11/keysym.h>
 #include <X11/extensions/XTest.h>
-
-#include <QX11Info>
 
 enum {
     LEFTSHIFT = 1,
@@ -186,15 +170,7 @@ void X11EventHandler::handleKeyboard(bool down, rfbKeySym keySym)
 void X11EventHandler::handlePointer(int buttonMask, int x, int y)
 {
     if (QX11Info::isPlatformX11()) {
-        QDesktopWidget *desktopWidget = QApplication::desktop();
-
-        int screen = desktopWidget->screenNumber();
-
-        if (screen < 0) {
-            screen = 0;
-        }
-
-        XTestFakeMotionEvent(data->dpy, screen, x, y, CurrentTime);
+        XTestFakeMotionEvent(data->dpy, 0, x, y, CurrentTime);
 
         for (int i = 0; i < 5; i++) {
             if ((data->buttonMask&(1 << i)) != (buttonMask&(1 << i))) {
